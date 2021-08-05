@@ -48,9 +48,13 @@ const getData = (type) => {
   );
 };
 
-// Needs a type argument for all getData functions in getAllData
+// traveler number will be captured on login and interpolated in. For now, I have hardcoded in a traveler
 const getAllData = () => {
-  return Promise.all([getData(), getData(), getData()]);
+  return Promise.all([
+    getData(`travelers/${5}`),
+    getData('trips'),
+    getData('destinations'),
+  ]);
 };
 
 // fetch post 👇
