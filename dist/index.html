@@ -6,30 +6,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>You Travel Tracker</title>
 </head>
-<header>
-  <nav>
-    <h1>Your Travel Team</h1>
-    <div>
-      <button>Your Trips</button>
-      <button>Book Now</button>
-      <button>Logout</button>
-    </div>
-  </nav>
-</header>
 <body>
-  <aside>
-    <h2>Your Trips</h2>
-    <button>Upcoming Trips</button>
-    <button>Pending Trips</button>
-    <button>Past Trips</button>
-    <section> 
-      <!-- present trip card will display here -->
-    </section>
-  </aside>
-  <main>
-    <h2>Upcoming Trips</h2>
-    <!-- trip cards will append here. on page load will start with upcoming trips -->
-  </main>
+  <header>
+    <h1>Your Travel Team</h1>
+    <nav>
+        <button>Your Trips</button>
+        <button>Book Now</button>
+        <button>Logout</button>
+    </nav>
+  </header>
+  <div class="main-content">
+    <aside>
+      <h2>Your Trips</h2>
+      <button class='trip-button'>Upcoming Trips</button>
+      <button class='trip-button'>Pending Trips</button>
+      <button class='trip-button'>Past Trips</button>
+      <section> 
+        <!-- current trip card will display here -->
+      </section>
+    </aside>
+    <main>
+      <h2>Upcoming Trips</h2>
+      <!-- trip cards will append here. on page load will start with upcoming trips -->
+    </main>
+  </div>
   <footer>
     <div>
       <p>Info here about sources</p>
