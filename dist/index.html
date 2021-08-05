@@ -4,11 +4,40 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpack Starter Kit</title>
+  <title>You Travel Tracker</title>
 </head>
+<header>
+  <nav>
+    <h1>Your Travel Team</h1>
+    <div>
+      <button>Your Trips</button>
+      <button>Book Now</button>
+      <button>Logout</button>
+    </div>
+  </nav>
+</header>
 <body>
-  <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
-  
+  <aside>
+    <h2>Your Trips</h2>
+    <button>Upcoming Trips</button>
+    <button>Pending Trips</button>
+    <button>Past Trips</button>
+    <section> 
+      <!-- present trip card will display here -->
+    </section>
+  </aside>
+  <main>
+    <h2>Upcoming Trips</h2>
+    <!-- trip cards will append here. on page load will start with upcoming trips -->
+  </main>
+  <footer>
+    <div>
+      <p>Info here about sources</p>
+      <p>created using vanilla javascript by Nina Brissey</p>
+    </div>
+    <h3>Total spent traveling with us this year: xx</h3>
+  </footer>
+  <!-- <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px"> -->
   <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
   <script src="bundle.js"></script>
 
