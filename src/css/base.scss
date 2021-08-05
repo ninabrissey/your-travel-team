@@ -1,0 +1,50 @@
+@use './variables.scss' as *;
+@use './reset.scss' as *;
+
+header {
+  height: 12vh;
+  position: sticky;
+  top: 0;
+  background-color: $secondary-background;
+  display: flex;
+}
+
+nav {
+  // display: flex;
+  // flex-direction: row;
+}
+
+body {
+  height: 80vh;
+}
+
+.main-content {
+  display: flex;
+  height: 80%;
+}
+
+aside {
+  width: 30%;
+  background-color: aquamarine;
+  height: 100%;
+}
+
+.trip-buttons {
+  height: 20%;
+  width: 80%;
+}
+
+main {
+  width: 70%;
+  background-color: cadetblue;
+  height: 100%;
+}
+
+h2 {
+  height: 100%;
+}
+
+footer {
+  height: 8vh;
+  background-color: $secondary-background;
+}
