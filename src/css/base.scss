@@ -1,11 +1,11 @@
-@use './variables.scss' as *;
 @use './reset.scss' as *;
+@use './variables.scss' as *;
 
 body {
   height: 100vh;
 }
 
-header {
+.header {
   height: 12vh;
   position: sticky;
   top: 0;
@@ -20,7 +20,7 @@ nav {
 
 .main-aside-content {
   display: flex;
-  height: 80%;
+  height: 80vh;
 }
 
 aside {
@@ -41,7 +41,7 @@ main {
 }
 
 h2 {
-  height: 100%;
+  height: 10%;
 }
 
 footer {
