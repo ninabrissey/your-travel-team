@@ -34,6 +34,12 @@ describe('Traveler', () => {
     expect(traveler.travelerType).to.equal('relaxer');
   });
 
+  it('should be able to sort all trips by date', () => {
+    traveler.sortAllTrips();
+
+    expect(traveler.allTrips[0].date).to.equal('2018/08/28');
+  });
+
   it('should start with an empty array for pending trips', () => {
     expect(traveler.pendingTrips).to.deep.equal([]);
   });
@@ -50,9 +56,9 @@ describe('Traveler', () => {
     expect(traveler.currentTrip.id).to.equal(8);
   });
 
-  it('should start with an empty array for upcoming trips', () => {
-    expect(traveler.upcomingTrips).to.be.a('array');
-  });
+  // it('should start with an empty array for upcoming trips', () => {
+  //   expect(traveler.upcomingTrips).to.be.a('array');
+  // });
 
   // it('should be able to get all upcoming trips', () => {
   //   traveler.getUpcomingTrips();
