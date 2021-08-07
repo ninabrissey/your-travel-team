@@ -17,8 +17,8 @@ import getAllData from './apiCalls';
 // An example of how you tell webpack to use a CSS (SCSS) file - look at @use here instead of import - must impost ALL scss files here
 // styling 👇
 import './css/base.scss';
-import './css/reset.scss';
-import './css/variables.scss';
+import './css/_reset.scss';
+import './css/_variables.scss';
 // example of @use syntax - didn't work in fitlit
 // @use ‘_colors.scss’ as *;
 
