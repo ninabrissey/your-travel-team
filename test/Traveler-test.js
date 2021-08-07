@@ -34,9 +34,11 @@ describe('Traveler', () => {
     expect(traveler.travelerType).to.equal('relaxer');
   });
 
-  it('should start with an empty array for all trips', () => {
-    expect(traveler.allTrips).to.be.a('array');
+  it('should start with an empty array for pending trips', () => {
+    expect(traveler.pendingTrips).to.deep.equal([]);
   });
+
+  it('', () => {});
 
   it('should start with an empty object for current trip', () => {
     expect(traveler.currentTrip).to.be.a('object');
@@ -59,12 +61,6 @@ describe('Traveler', () => {
 
   // it('should start with an empty array for past trips', () => {
   //   expect(traveler.pastTrips).to.be.a('array');
-  // });
-
-  // it('', () => {});
-
-  // it('should start with an empty array for pending trips', () => {
-  //   expect(traveler.pendingTrips).to.be.a('array');
   // });
 
   // it('', () => {});
