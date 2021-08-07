@@ -14,6 +14,13 @@ class Traveler {
     this.pendingTrips = [];
   }
 
+  // maybe put this functionaility in scripts when getting the individual users trips
+
+  sortAllTripsByDate() {
+    this.allTrips.sort((a, b) => (a.date > b.date ? 1 : -1));
+    console.log(this.allTrips);
+  }
+
   getCurrentTrip(todaysDate) {
     this.allTrips.forEach((trip) => {
       let startDate = dayjs(trip.date);
@@ -38,7 +45,7 @@ class Traveler {
 
 export default Traveler;
 
-// method to get trips by date and by status (approved or pending)
+// method to get trips by date (earliest date first) and by status (approved or pending)
 
 // for past trips, sort by latest date to earlier date
 
