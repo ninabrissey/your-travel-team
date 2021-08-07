@@ -12,16 +12,16 @@ class Traveler {
     this.upcomingTrips = [];
     this.pastTrips = [];
     this.pendingTrips = [];
+    this.spendingYTD = 0;
   }
 
   // maybe put this functionaility in scripts when getting the individual users trips
 
   sortAllTripsByDate() {
     this.allTrips.sort((a, b) => (a.date > b.date ? 1 : -1));
-    console.log(this.allTrips);
   }
 
-  getCurrentTrip(todaysDate) {
+  categorizeTrips(todaysDate) {
     this.allTrips.forEach((trip) => {
       let startDate = dayjs(trip.date);
       let endDate = dayjs(trip.date)
@@ -34,13 +34,18 @@ class Traveler {
         if (dayjs(todaysDate).isBetween(startDate, endDate, null, '[]')) {
           this.currentTrip = trip;
         }
+        if (dayjs(todaysDate).isBefore(startDate)) {
+          this.upcomingTrips.push(trip);
+        }
+        if (dayjs(todaysDate).isAfter(startDate)) {
+          this.pastTrips.push(trip);
+        }
       }
     });
+    this.pastTrips.reverse();
   }
 
-  getTrips(pendingOrUpcoming) {
-    this[pendingOrUpcoming] = this.allTrips;
-  }
+  //   getSpendingYTD() {}
 }
 
 export default Traveler;
