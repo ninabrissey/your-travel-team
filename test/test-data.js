@@ -1,4 +1,6 @@
-const travelers = [
+import * as dayjs from 'dayjs';
+
+const travelersData = [
   {
     id: 1,
     name: 'Ham Leadbeater',
@@ -11,7 +13,7 @@ const travelers = [
   },
 ];
 
-const trips = [
+const tripsData = [
   {
     id: 1,
     userID: 1,
@@ -87,7 +89,7 @@ const trips = [
     userID: 1,
     destinationID: 6,
     travelers: 6,
-    date: '2021/08/05',
+    date: dayjs().format('YYYY/MM/DD'),
     duration: 20,
     status: 'approved',
     suggestedActivities: [],
@@ -124,7 +126,7 @@ const trips = [
   },
 ];
 
-const denstinations = [
+const denstinationsData = [
   {
     id: 1,
     destination: 'Lima, Peru',
@@ -207,3 +209,5 @@ const denstinations = [
     alt: 'canal with boats and trees and buildings along the side',
   },
 ];
+
+export { travelersData, tripsData, denstinationsData };
