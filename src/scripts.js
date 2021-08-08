@@ -12,7 +12,10 @@
 //   weeksWaterInput,
 //   displayUserSelectWeek,
 // } from './domUpdates';
-import getAllData from './apiCalls';
+import fetchAllData from './apiCalls';
+import * as dayjs from 'dayjs';
+import Trip from './Trip';
+import Traveler from './Traveler';
 
 // An example of how you tell webpack to use a CSS (SCSS) file - look at @use here instead of import - must impost ALL scss files here
 // styling 👇
@@ -33,15 +36,33 @@ import './images/turing-logo.png';
 console.log('This is the JavaScript entry file - your code begins here.');
 
 // global variables 👇
+export let dateToday = dayjs().format('YYYY/MM/DD');
+export let currentTraveler, trips;
 
 // event listeners 👇
+window.addEventListener('load', fetchAllData);
 
 // event handlers and functions 👇
-getAllData().then((data) => {
-  console.log(data[2]); // instantiate all destinations to display on dom for the user
-  console.log(data[0]); // build helper function to instantiate/get user
-  console.log(data[1]); // build helper function to filter through array to instantiate/get all users trips // will eventually need to filter by date for past/present/future/pending and have those arrays on the user class
+fetchAllData().then((data) => {
+  let travelerData = data[0];
+  let tripsData = data[1].trips;
+  let destinationsData = data[2].destinations;
+  getTrips(tripsData, travelerData, destinationsData);
+  getTraveler(travelerData, trips);
 });
 // .then((data) => console.log(data));
 
 // when do you I need to error handle???
+
+const getTrips = (tripsData, travelerData, destinationsData) => {
+  trips = tripsData
+    .filter((trip) => trip.userID === travelerData.id)
+    .map((trip) => {
+      const instantiatedTrip = new Trip(trip, destinationsData);
+      return instantiatedTrip;
+    });
+};
+
+const getTraveler = (travelerData, instantiatedTrips) => {
+  currentTraveler = new Traveler(travelerData, instantiatedTrips);
+};
