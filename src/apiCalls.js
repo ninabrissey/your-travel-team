@@ -44,18 +44,20 @@
 // import currentTraveler from './scripts';
 
 // fetch get 👇
-const getData = (type) => {
+const fetchData = (type) => {
   return fetch(`http://localhost:3001/api/v1/${type}`).then((response) =>
     response.json()
   );
 };
 
 // traveler number will be captured on login and interpolated in. For now, I have hardcoded in a traveler
-const getAllData = () => {
+const fetchAllData = () => {
   return Promise.all([
-    getData(`travelers/${5}`) /* would use currentUser from scripts here */,
-    getData('trips'),
-    getData('destinations'),
+    fetchData(
+      `travelers/${5}`
+    ) /* would use currentUser from scripts here instead of 5*/,
+    fetchData('trips'),
+    fetchData('destinations'),
   ]);
 };
 
@@ -68,4 +70,4 @@ const postData = (postObject, type) => {
   });
 };
 
-export default getAllData;
+export default fetchAllData;
