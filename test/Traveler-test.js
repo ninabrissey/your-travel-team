@@ -102,6 +102,4 @@ describe('Traveler', () => {
 
     expect(traveler.spendingYTD).to.equal(36652.5);
   });
-
-  // it('', () => {});
 });
