@@ -1,5 +1,3 @@
-import * as dayjs from 'dayjs';
-
 const travelersData = [
   {
     id: 1,
@@ -89,7 +87,7 @@ const tripsData = [
     userID: 1,
     destinationID: 6,
     travelers: 6,
-    date: dayjs().format('YYYY/MM/DD'),
+    date: '2021/08/07',
     duration: 20,
     status: 'approved',
     suggestedActivities: [],
@@ -110,6 +108,16 @@ const tripsData = [
     destinationID: 2,
     travelers: 6,
     date: '2019/07/23',
+    duration: 17,
+    status: 'approved',
+    suggestedActivities: [],
+  },
+  {
+    id: 12,
+    userID: 1,
+    destinationID: 9,
+    travelers: 6,
+    date: '2020/12/23',
     duration: 17,
     status: 'approved',
     suggestedActivities: [],
@@ -166,8 +174,8 @@ const denstinationsData = [
   {
     id: 5,
     destination: 'Madrid, Spain',
-    estimatedLodgingCostPerDay: 150,
-    estimatedFlightCostPerPerson: 650,
+    estimatedLodgingCostPerDay: 158,
+    estimatedFlightCostPerPerson: 659,
     image:
       'https://images.unsplash.com/photo-1543785734-4b6e564642f8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
     alt: 'city with clear skys and a road in the day time',
