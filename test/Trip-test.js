@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import Trip from '../src/Trip';
 import { tripsData, denstinationsData } from './test-data';
-// import * as dayjs from 'dayjs';
 
 describe('Trip', () => {
   let trip, tripData;
@@ -9,27 +8,6 @@ describe('Trip', () => {
   beforeEach(() => {
     tripData = tripsData[6];
     trip = new Trip(tripData, denstinationsData);
-
-    // {
-    //   id: 7,
-    //   userID: 1,
-    //   destinationID: 5,
-    //   travelers: 5,
-    //   date: '2018/08/28',
-    //   duration: 20,
-    //   status: 'approved',
-    //   suggestedActivities: [],
-    // }
-
-    // {
-    //   id: 5,
-    //   destination: 'Madrid, Spain',
-    //   estimatedLodgingCostPerDay: 158,
-    //   estimatedFlightCostPerPerson: 659,
-    //   image:
-    //     'https://images.unsplash.com/photo-1543785734-4b6e564642f8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
-    //   alt: 'city with clear skys and a road in the day time',
-    // }
   });
 
   it('should be a function', () => {
