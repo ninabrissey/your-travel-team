@@ -21,6 +21,8 @@ class Traveler {
     this.allTrips.sort((a, b) => (a.date > b.date ? 1 : -1));
   }
 
+  // maybe use switch below. look at meg's example in our DMs
+
   categorizeTrips(dateToday) {
     this.allTrips.forEach((trip) => {
       if (trip.status === 'pending') {
