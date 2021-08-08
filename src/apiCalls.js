@@ -41,6 +41,8 @@
 
 // DELETE TRIP IS AN EXTENSION - LOOK AT API DOCUMENTATION IF INTERESTED
 
+// import currentTraveler from './scripts';
+
 // fetch get 👇
 const getData = (type) => {
   return fetch(`http://localhost:3001/api/v1/${type}`).then((response) =>
@@ -51,7 +53,7 @@ const getData = (type) => {
 // traveler number will be captured on login and interpolated in. For now, I have hardcoded in a traveler
 const getAllData = () => {
   return Promise.all([
-    getData(`travelers/${5}`),
+    getData(`travelers/${5}`) /* would use currentUser from scripts here */,
     getData('trips'),
     getData('destinations'),
   ]);
