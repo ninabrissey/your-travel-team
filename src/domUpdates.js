@@ -16,6 +16,9 @@ import { dateToday, currentTraveler, trips, destinationsData } from './scripts';
 // query selectors 👇
 const cardsGrid = document.getElementById('cardsGrid');
 const mainHeader = document.getElementById('mainHeader');
+const upComingTripBtn = document.getElementById('upComingTripBtn');
+const pendingTripBtn = document.getElementById('pendingTripBtn');
+const pastTripBtn = document.getElementById('pastTripBtn');
 
 // display on load 👇
 
@@ -42,23 +45,35 @@ const renderDestinationsGrid = () => {
 
 // display upon user input once logged in 👇
 
-function renderTripsGrid(type, headerDisplay) {
-  mainHeader.innerHTML = `${headerDisplay} Trips`;
+function renderTripsGrid(tripType, headerDisplay) {
+  mainHeader.innerText = `${headerDisplay} Trips`;
   tripsGrid.innerHTML = '';
-  traveler[type].forEach((destination) => {
+  traveler[tripType].forEach((trip) => {
     cardsGrid.innerHTML += `
     <section class="card">
     <div class="destination-card">
-      <img class="destination-image" src="${destination.image}" alt="${destination.alt}">
+      <img class="destination-image" src="${
+        trip.tripsDestination.image
+      }" alt="${trip.tripsDestination.alt}">
       <div class="destination-details">
-        <h4 class="city">${destination.destination}</h4>
-        <p class="lodging-cost">Estimated lodging: $${destination.estimatedLodgingCostPerDay} / night</p>
-        <p class="flight-cost">Estimated roundtrip flight: $${destination.estimatedFlightCostPerPerson}</p>
+        <h4 class="city">${trip.tripsDestination.destination}</h4>
+        <p class="lodging-cost">Number of travelers: $${trip.travelers}</p>
+        <p class="flight-cost">Trip cost: $${makeTripCostString(trip)}</p>
       </div>
     </div>
     `;
   });
 }
+
+const makeTripCostString = (trip) => {
+  let tripCost = `$${trip.calculateTripCost()}`;
+
+  return (tripCost = [
+    totalCost.slice(0, totalCost.length - 6),
+    ',',
+    totalCost.slice(totalCost.length - 6),
+  ].join(''));
+};
 
 const showErrorMessage = () => {
   //error.status
