@@ -60,7 +60,7 @@ const fetchData = (type) => {
 const fetchAllData = () => {
   return Promise.all([
     fetchData(
-      `travelers/${5}`
+      `travelers/${3}`
     ) /* would use currentUser from scripts here instead of 5*/,
     fetchData('trips'),
     fetchData('destinations'),
