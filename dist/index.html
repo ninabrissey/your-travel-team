@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="html">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>You Travel Tracker</title>
 </head>
-<body>
+<body class="body">
   <header class="header">
-    <h1>Your Travel Team</h1>
-    <nav>
+    <h1 class='company-name'>Your Travel Team</h1>
+    <nav class='nav-buttons'>
         <button>Your Trips</button>
         <button>Book Now</button>
         <button>Logout</button>
     </nav>
   </header>
   <div class="main-aside-content">
-    <aside>
-      <h2>Your Trips</h2>
+    <aside class='aside'>
+      <h2 class="trip-header">Your Trips</h2>
       <button class='trip-button'>Upcoming Trips</button>
       <button class='trip-button'>Pending Trips</button>
       <button class='trip-button'>Past Trips</button>
@@ -25,19 +25,11 @@
         <!-- current trip card will display here -->
       </section>
     </aside>
-    <main>
-      <h2>Upcoming Trips</h2>
-        <!-- <div class="grid-wrapper">
-          <section class="trip-card">
-            <div class="park-img">
-              <img class= "park-info-icon" src="assets/up-arrow.png" alt="arrow icon">
-              <div class="visits">
-                <p class="visits-p">Visits</p>
-                <p class="num-visits">30</p>
-              </div>
-            </div>
-          </section>
-        </div> -->
+    <main id='main'>
+      <h2 class="trip-header" id='tripHeader'>Upcoming Trips</h2>
+        <div class="trips-grid" id='tripsGrid'>
+          <!-- destination and categorized trip cards append here -->
+        </div>
       <!-- trip cards will append here. on page load will start with upcoming trips -->
     </main>
   </div>
