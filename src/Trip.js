@@ -9,17 +9,35 @@ class Trip {
     this.status = tripDetails.status;
     this.suggestedActivities = tripDetails.suggestedActivities;
     this.destinations = destinations;
+    this.tripsDestination = {};
     this.cost = 0;
+    //add city property to display
+  }
+
+  //need to add this test to test as well
+  updateTripProperties() {
+    this.getTripDestination();
+    this.calculateTripCost();
+  }
+
+  // need to add test for this function below
+  getTripDestination() {
+    const foundDestination = this.destinations.find(
+      (destination) => this.destinationID === destination.id
+    );
+    this.tripsDestination = foundDestination;
   }
 
   calculateTripCost() {
-    const currentDestination = this.destinations.find(
-      (destination) => this.destinationID === destination.id
-    );
+    // below is in the above function figure how to fix the tests
+
+    // const currentDestination = this.destinations.find(
+    //   (destination) => this.destinationID === destination.id
+    // );
 
     const flightAndLodingPerPerson =
-      currentDestination.estimatedLodgingCostPerDay * this.duration +
-      currentDestination.estimatedFlightCostPerPerson;
+      this.tripsDestination.estimatedLodgingCostPerDay * this.duration +
+      this.tripsDestination.estimatedFlightCostPerPerson;
 
     const totalCostBeforeCommission = flightAndLodingPerPerson * this.travelers;
 
