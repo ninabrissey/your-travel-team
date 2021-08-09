@@ -59,8 +59,18 @@ describe('Trip', () => {
     expect(trip.cost).to.equal(0);
   });
 
+  it('should start with a trip destination of an empty object', () => {
+    expect(trip.tripsDestination).to.deep.equal({});
+  });
+
+  it("should hold that specific trip's destination", () => {
+    trip.getTripDestination();
+
+    expect(trip.tripsDestination.id).to.equal(5);
+  });
+
   it('should be able to calculate the cost of a single trip', () => {
-    trip.calculateTripCost();
+    trip.updateTripProperties();
 
     expect(trip.cost).to.equal(21004.5);
   });
