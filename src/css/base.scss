@@ -30,7 +30,18 @@
 .nav-buttons {
   display: flex;
   flex-direction: row;
-  width: 25%;
+  width: 40%;
+  justify-content: space-around;
+  align-items: center;
+  button {
+    width: 30%;
+    height: 50%;
+  }
+}
+
+.current-trip {
+  height: 60%;
+  width: 80%;
 }
 
 .company-name {
@@ -49,10 +60,24 @@
   // background-color: aquamarine;
   height: 100%;
   margin-top: 0.75%;
+  .trip-buttons-wrapper {
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    button {
+      width: 80%;
+      height: 25%;
+    }
+  }
+  .current-trip {
+    height: 60%;
+    width: 80%;
+  }
 }
 
 .trip-button {
-  height: 15%;
+  height: 10%;
   width: 80%;
 }
 
@@ -61,15 +86,20 @@ main {
   // background-color: cadetblue;
   height: 100%;
   overflow-y: scroll;
+  padding-right: 2%;
+  padding-left: 2%;
 }
 
 h2 {
   height: 10%;
 }
 
+.trip-header,
 .main-header {
   font-size: 2rem;
-  margin: 1%;
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
 }
 
 footer {
@@ -108,10 +138,46 @@ footer {
 .destination-image {
   width: 100%;
   border-radius: 12px;
+  margin-bottom: 5%;
 }
 
-// buttons styling
+// all buttons styling
 
-button {
+// button {
+//   font-family: Poppins, sans-serif;
+//   &::after {
+//     border: 0;
+//     box-shadow: 0px 0px 0px $border-width $color;
+//     width: calc(100%);
+//     height: calc(100%);
+//   }
+
+//   &:hover {
+//     &::after {
+//       top: -#{$offset};
+//       left: -#{$offset};
+//       width: calc(100% + #{$offset} * 2);
+//       height: calc(100% + #{$offset} * 2);
+//     }
+//   }
+// }
+
+.button,
+.trip-button {
+  background-color: white;
   font-family: Poppins, sans-serif;
+  border-radius: 10px;
+  border: 1px solid black;
+  font-weight: bold;
+  &:hover {
+    background-color: rgb(220, 244, 244);
+    border: none;
+  }
+}
+
+.grow {
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+  }
 }
