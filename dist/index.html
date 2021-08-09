@@ -10,28 +10,31 @@
   <header class="header">
     <h1 class='company-name'>Your Travel Team</h1>
     <nav class='nav-buttons'>
-        <button>Your Trips</button>
-        <button>Book Now</button>
-        <button>Logout</button>
+        <button class='button' id='bookNow'>Book Now</button>
+        <button class='button' id='logout'>Logout</button>
     </nav>
   </header>
   <div class="main-aside-content">
-    <aside class='aside'>
+    <aside class='aside' id='aside'>
       <h2 class="trip-header">Your Trips</h2>
-      <button class='trip-button' id='upComingTripBtn'>Upcoming Trips</button>
-      <button class='trip-button' id='pendingTripBtn'>Pending Trips</button>
-      <button class='trip-button' id='pastTripBtn'>Past Trips</button>
-      <section> 
-        <!-- current trip card will display here -->
+      <div class="trip-buttons-wrapper">
+        <button class='trip-button' id='upcomingTrips'>Upcoming Trips</button>
+        <button class='trip-button' id='pendingTrips'>Pending Trips</button>
+        <button class='trip-button' id='pastTrips'>Past Trips</button>
+      </div>
+      <section class="current-trip" id='currentTrip'> 
+        <!-- current trip card will append here -->
       </section>
     </aside>
     <main id='main'>
-      <!-- //COME$ BADCK HERE -->
       <h2 class="main-header" id='mainHeader'>Choose Destination</h2>
         <div class="cards-grid" id='cardsGrid'>
-          <!-- destination and categorized trip cards append here -->
+          <!-- destination cards append here -->
+          <!-- or -->
+          <!-- categorized trip cards append here -->
+          <!-- or -->
+          <!-- book now page append here -->
         </div>
-      <!-- trip cards will append here. on page load will start with upcoming trips -->
     </main>
   </div>
   <footer>
