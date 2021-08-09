@@ -1,32 +1,54 @@
 @use './_reset.scss' as *;
 @use './_variables.scss' as *;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
 
-body {
+// .html {
+//   font-size: 16px;
+// }
+
+//above is not dong anything for my text size. My text is not responsive at all
+
+.body {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: Poppins, sans-serif;
+  padding-left: 1em;
+
+  //look at vover scroll on idea box
 }
 
 .header {
   height: 12vh;
   position: sticky;
   top: 0;
-  background-color: $secondary-background;
+  // background-color: $secondary-background;
   display: flex;
+  justify-content: space-between;
 }
 
-nav {
-  // display: flex;
-  // flex-direction: row;
+.nav-buttons {
+  display: flex;
+  flex-direction: row;
+  width: 25%;
+}
+
+.company-name {
+  font-size: 3rem;
+  margin: 1%;
 }
 
 .main-aside-content {
   display: flex;
   height: 80vh;
+  padding: 0 0 1em 1em;
 }
 
-aside {
-  width: 30%;
-  background-color: aquamarine;
+.aside {
+  width: 20%;
+  // background-color: aquamarine;
   height: 100%;
+  margin-top: 0.75%;
 }
 
 .trip-button {
@@ -35,16 +57,61 @@ aside {
 }
 
 main {
-  width: 70%;
-  background-color: cadetblue;
+  width: 80%;
+  // background-color: cadetblue;
   height: 100%;
+  overflow-y: scroll;
 }
 
 h2 {
   height: 10%;
 }
 
+.trip-header {
+  font-size: 2rem;
+  margin: 1%;
+}
+
 footer {
   height: 8vh;
-  background-color: $secondary-background;
+  // background-color: $secondary-background;
+  position: sticky;
+  bottom: 0;
+}
+
+// trip/destinations cards
+.trips-grid {
+  height: 90%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  gap: 2em;
+  grid-auto-flow: row;
+}
+
+.destination-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.card {
+  height: auto;
+  // background-color: whitesmoke;
+}
+
+.city {
+  font-size: 1.5rem;
+}
+
+.destination-image {
+  width: 100%;
+  border-radius: 12px;
+}
+
+// buttons styling
+
+button {
+  font-family: Poppins, sans-serif;
 }
