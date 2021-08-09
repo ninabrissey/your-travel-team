@@ -45,9 +45,15 @@
 
 // fetch get 👇
 const fetchData = (type) => {
-  return fetch(`http://localhost:3001/api/v1/${type}`).then((response) =>
-    response.json()
-  );
+  return fetch(`http://localhost:3001/api/v1/${type}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      } else {
+        return response;
+      }
+    })
+    .then((response) => response.json());
 };
 
 // traveler number will be captured on login and interpolated in. For now, I have hardcoded in a traveler
