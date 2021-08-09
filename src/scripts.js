@@ -16,6 +16,7 @@ import fetchAllData from './apiCalls';
 import * as dayjs from 'dayjs';
 import Trip from './Trip';
 import Traveler from './Traveler';
+import renderDestinationsGrid from './domUpdates';
 
 // An example of how you tell webpack to use a CSS (SCSS) file - look at @use here instead of import - must impost ALL scss files here
 // styling 👇
@@ -37,23 +38,12 @@ console.log('This is the JavaScript entry file - your code begins here.');
 
 // global variables 👇
 export let dateToday = dayjs().format('YYYY/MM/DD');
-export let currentTraveler, trips;
+export let currentTraveler, trips, destinationsData;
 
 // event listeners 👇
 window.addEventListener('load', fetchAllData);
 
 // event handlers and functions 👇
-fetchAllData().then((data) => {
-  let travelerData = data[0];
-  let tripsData = data[1].trips;
-  let destinationsData = data[2].destinations;
-  getTrips(tripsData, travelerData, destinationsData);
-  getTraveler(travelerData, trips);
-});
-// .then((data) => console.log(data));
-
-// when do you I need to error handle???
-
 const getTrips = (tripsData, travelerData, destinationsData) => {
   trips = tripsData
     .filter((trip) => trip.userID === travelerData.id)
@@ -66,3 +56,22 @@ const getTrips = (tripsData, travelerData, destinationsData) => {
 const getTraveler = (travelerData, instantiatedTrips) => {
   currentTraveler = new Traveler(travelerData, instantiatedTrips);
 };
+
+const displayDashboard = () => {
+  renderDestinationsGrid();
+};
+
+fetchAllData()
+  .then((data) => {
+    let travelerData = data[0];
+    let tripsData = data[1].trips;
+    destinationsData = data[2].destinations;
+    getTrips(tripsData, travelerData, destinationsData);
+    getTraveler(travelerData, trips);
+    console.log('hi');
+  })
+  .then(displayDashboard);
+// .catch((error) => showErrorMessage(error));
+// .then((data) => console.log(data));
+
+// when do you I need to error handle???
