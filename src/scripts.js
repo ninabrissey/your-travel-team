@@ -21,6 +21,7 @@ import {
   renderTripsGrid,
   renderCurrentTrip,
   displayBookTripPage,
+  displayYearToDateSpent,
   // cardsGrid,
   // tripsButtons,
 } from './domUpdates';
@@ -44,9 +45,11 @@ import './images/turing-logo.png';
 console.log('This is the JavaScript entry file - your code begins here.');
 
 // query selectors 👇
+// const totalSpentYTD = document.getElementById('totalSpentYTD');
 const tripsButtons = document.getElementById('aside');
 // export const cardsGrid = document.getElementById('cardsGrid');
 export const mainDisplay = document.getElementById('main');
+const bookTripBtn = document.getElementById('bookNow');
 
 // global variables 👇
 export let dateToday = dayjs().format('YYYY/MM/DD');
@@ -78,14 +81,15 @@ const updateClassProperties = (dateToday) => {
   });
   currentTraveler.sortAllTripsByDate(dateToday);
   currentTraveler.categorizeTrips(dateToday);
-  currentTraveler.getSpendingYTD(dateToday);
-  console.log(currentTraveler.upcomingTrips);
+  // currentTraveler.getSpendingYTD(dateToday);
 };
 
-const displayDashboard = () => {
+const displayDashboard = (dateToday) => {
   renderDestinationsGrid();
   updateClassProperties(dateToday);
   renderCurrentTrip();
+  currentTraveler.getSpendingYTD(dateToday);
+  displayYearToDateSpent();
 };
 
 fetchAllData()
@@ -107,3 +111,4 @@ fetchAllData()
 window.addEventListener('load', fetchAllData);
 tripsButtons.addEventListener('click', renderTripsGrid);
 mainDisplay.addEventListener('click', displayBookTripPage);
+bookTripBtn.addEventListener('click', renderDestinationsGrid);
