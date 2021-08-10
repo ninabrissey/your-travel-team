@@ -55,7 +55,10 @@ const getEstimateBtn = document.getElementById('getEstimate');
 
 // global variables 👇
 export let dateToday = dayjs().format('YYYY/MM/DD');
-export let currentTraveler, trips, destinationsData;
+export let currentTraveler;
+export let trips;
+export let destinationsData;
+export let tripsData;
 
 // // event listeners 👇
 // window.addEventListener('load', fetchAllData);
@@ -97,7 +100,7 @@ const displayDashboard = (dateToday) => {
 fetchAllData()
   .then((data) => {
     let travelerData = data[0];
-    let tripsData = data[1].trips;
+    tripsData = data[1].trips;
     destinationsData = data[2].destinations;
     getTrips(tripsData, travelerData, destinationsData);
     getTraveler(travelerData, trips);
