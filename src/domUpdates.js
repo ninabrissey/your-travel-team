@@ -1,5 +1,7 @@
 // scripts 👇
 import * as dayjs from 'dayjs';
+// import { postData, createPostObject } from './apiCalls';
+import { postData } from './apiCalls';
 
 // global variables 👇
 import {
@@ -8,26 +10,17 @@ import {
   trips,
   destinationsData,
   mainDisplay,
+  tripsData,
 } from './scripts';
-
-import { postData } from './apiCalls';
+let destinationSelected;
+export let tripRequest;
 
 // query selectors 👇
-let destinationSelected;
-let tripRequest;
-
-// const totalSpentYTD = document.getElementById('totalSpentYTD');
 const cardsGrid = document.getElementById('cardsGrid');
 const mainHeader = document.getElementById('mainHeader');
 const currentTripCard = document.getElementById('currentTrip');
-// const bookTripBtn = document.getElementById('bookNow');
 const logoutBtn = document.getElementById('logout');
 const totalSpentYTD = document.getElementById('totalSpentYTD');
-// const tripForm = document.getElementById('tripForm');
-// const upComingTripBtn = document.getElementById('upcomingTrips');
-// const pendingTripBtn = document.getElementById('pendingTrips');
-// const pastTripBtn = document.getElementById('pastTrips');
-// export let tripsButtons = document.getElementById('aside');
 
 // display on load 👇
 
@@ -79,8 +72,7 @@ export const renderTripsGrid = (e) => {
   cardsGrid.classList.add('cards-grid');
   console.log(currentTraveler);
   mainDisplay.removeEventListener('click', displayBookTripPage);
-  // dont need this trip type variable if you are not using it
-  let tripType = e.target.id;
+  const tripType = e.target.id;
   if (
     e.target.id === 'upcomingTrips' ||
     e.target.id === 'pastTrips' ||
@@ -118,7 +110,7 @@ export const renderCurrentTrip = () => {
     .format('MM/DD/YYYY');
   currentTripCard.innerHTML += `
     <h3>Your current trip: <h3>
-    <section class="card">
+    <section class="card current">
     <div class="destination-card">
       <img class="destination-image" src="${currentTraveler.currentTrip.tripsDestination.image}" alt="${currentTraveler.currentTrip.tripsDestination.alt}">
       <div class="destination-details">
@@ -233,10 +225,14 @@ export const getTripEstimate = () => {
   }
 };
 
-export const calculateTripEstimate = (destinationSelected) => {
-  const duration = document.getElementById('duration').value;
+export const calculateTripEstimate = (
+  destinationSelected,
+  duration,
+  numOfTravelers
+) => {
+  // const duration = document.getElementById('duration').value;
   const tripDate = document.getElementById('start').value;
-  const numOfTravelers = document.getElementById('travelers').value;
+  // const numOfTravelers = document.getElementById('travelers').value;
 
   const currentDestination = destinationsData.find(
     (destination) => destinationSelected.id === destination.id
@@ -280,8 +276,8 @@ const createPostObject = (
   duration
 ) => {
   tripRequest = {
-    id: trips.length + 1,
-    userID: 21,
+    id: tripsData.length + 1,
+    userID: currentTraveler.id,
     destinationID: destinationID,
     travelers: parseInt(numTravelers),
     date: dayjs(tripDate).format('YYYY/MM/DD'),
@@ -293,14 +289,8 @@ const createPostObject = (
 
 const postUserTrip = () => {
   console.log(tripRequest);
-  postData(tripRequest, 'updateTrip');
+  postData(tripRequest, 'trips');
 };
-// const startDate = document.getElementById('start').value;
-// console.log('startDate:', startDate);
-// const duration = document.getElementById('duration').value;
-// console.log('endDate:', duration);
-// const numOfTravelers = document.getElementById('travelers').value;
-// console.log('numOfTravelers:', numOfTravelers);
 
 //need to capture the data
 //make a post object
