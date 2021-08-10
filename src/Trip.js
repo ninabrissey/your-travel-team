@@ -28,6 +28,20 @@ class Trip {
     this.tripsDestination = foundDestination;
   }
 
+  // calculateTripEstimate(destinationID, duration, numOfTravelers) {
+  //   const currentDestination = this.destinations.find(
+  //     (destination) => destinationID === destination.id
+  //   );
+
+  //   const flightAndLodingPerPerson =
+  //     this.tripsDestination.estimatedLodgingCostPerDay * duration +
+  //     this.tripsDestination.estimatedFlightCostPerPerson;
+
+  //   const totalCostBeforeCommission = flightAndLodingPerPerson * numOfTravelers;
+
+  //   this.cost = Number((totalCostBeforeCommission * 1.1).toFixed(2));
+  // }
+
   calculateTripCost() {
     // below is in the above function figure how to fix the tests
 
