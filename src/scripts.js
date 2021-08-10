@@ -12,7 +12,7 @@
 //   weeksWaterInput,
 //   displayUserSelectWeek,
 // } from './domUpdates';
-import fetchAllData from './apiCalls';
+import { fetchAllData } from './apiCalls';
 import * as dayjs from 'dayjs';
 import Trip from './Trip';
 import Traveler from './Traveler';
@@ -22,6 +22,7 @@ import {
   renderCurrentTrip,
   displayBookTripPage,
   displayYearToDateSpent,
+  getTripEstimate,
   // cardsGrid,
   // tripsButtons,
 } from './domUpdates';
@@ -50,6 +51,7 @@ const tripsButtons = document.getElementById('aside');
 // export const cardsGrid = document.getElementById('cardsGrid');
 export const mainDisplay = document.getElementById('main');
 const bookTripBtn = document.getElementById('bookNow');
+const getEstimateBtn = document.getElementById('getEstimate');
 
 // global variables 👇
 export let dateToday = dayjs().format('YYYY/MM/DD');
@@ -112,3 +114,5 @@ window.addEventListener('load', fetchAllData);
 tripsButtons.addEventListener('click', renderTripsGrid);
 mainDisplay.addEventListener('click', displayBookTripPage);
 bookTripBtn.addEventListener('click', renderDestinationsGrid);
+
+// getEstimateBtn.addEventListener('click', getTripEstimate);
