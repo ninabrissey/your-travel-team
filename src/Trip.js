@@ -9,8 +9,8 @@ class Trip {
     this.status = tripDetails.status;
     this.suggestedActivities = tripDetails.suggestedActivities;
     this.destinations = destinations;
-    this.tripsDestination = {};
     this.cost = 0;
+    this.tripsDestination = {};
     //add city property to display
   }
 
