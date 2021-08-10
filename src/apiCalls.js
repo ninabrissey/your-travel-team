@@ -57,7 +57,7 @@ const fetchData = (type) => {
 };
 
 // traveler number will be captured on login and interpolated in. For now, I have hardcoded in a traveler
-const fetchAllData = () => {
+export const fetchAllData = () => {
   return Promise.all([
     fetchData(
       `travelers/${3}`
@@ -68,12 +68,13 @@ const fetchAllData = () => {
 };
 
 // fetch post 👇
-const postData = (postObject, type) => {
+export const postData = (postObject, type) => {
+  console.log('postObject:', postObject);
+  console.log('type:', type);
+
   fetch(`http://localhost:3001/api/v1/${type}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(postObject),
   });
 };
-
-export default fetchAllData;
