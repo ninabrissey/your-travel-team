@@ -40,6 +40,9 @@
 // };
 
 // DELETE TRIP IS AN EXTENSION - LOOK AT API DOCUMENTATION IF INTERESTED
+// import * as dayjs from 'dayjs';
+// import { tripsData } from './scripts';
+// import { tripRequest } from './domUpdates';
 
 // import currentTraveler from './scripts';
 
@@ -76,5 +79,34 @@ export const postData = (postObject, type) => {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(postObject),
-  });
+  })
+    .then((res) => res.json())
+    .then((trip) => console.log(trip));
 };
+
+// export const createPostObject = (
+//   currentTraveler,
+//   destinationID,
+//   numTravelers,
+//   tripDate,
+//   duration
+// ) => {
+//   tripRequest = {
+//     id: tripsData.length + 1,
+//     userID: currentTraveler.id,
+//     destinationID: destinationID,
+//     travelers: parseInt(numTravelers),
+//     date: dayjs(tripDate).format('YYYY/MM/DD'),
+//     duration: parseInt(duration),
+//     status: 'pending',
+//     suggestedActivities: [],
+//   };
+// };
+
+// const checkForError = (response) => {
+//   if (!response.ok) {
+//     throw new Error('Something went wrong, please try again.');
+//   } else {
+//     return response.json();
+//   }
+// }
