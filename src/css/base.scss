@@ -16,13 +16,13 @@
   padding-left: 1em;
   font-size: 16px;
   overflow: hidden;
+  min-width: 600px;
 }
 
 .header {
   height: 12vh;
   position: sticky;
   top: 0;
-  // background-color: $secondary-background;
   display: flex;
   justify-content: space-between;
   padding-bottom: 1%;
@@ -58,7 +58,6 @@
 
 .aside {
   width: 20%;
-  // background-color: aquamarine;
   height: 100%;
   .trip-buttons-wrapper {
     height: 40%;
@@ -104,12 +103,11 @@ h2 {
 
 footer {
   height: 8vh;
-  // background-color: $secondary-background;
   position: sticky;
   bottom: 0;
 }
 
-// trip/destinations cards
+// trips/destinations cards
 .cards-grid {
   height: 90%;
   width: 100%;
@@ -129,7 +127,6 @@ footer {
 
 .card {
   height: auto;
-  // background-color: whitesmoke;
 }
 
 .city {
@@ -143,26 +140,6 @@ footer {
 }
 
 // all buttons styling
-
-// button {
-//   font-family: Poppins, sans-serif;
-//   &::after {
-//     border: 0;
-//     box-shadow: 0px 0px 0px $border-width $color;
-//     width: calc(100%);
-//     height: calc(100%);
-//   }
-
-//   &:hover {
-//     &::after {
-//       top: -#{$offset};
-//       left: -#{$offset};
-//       width: calc(100% + #{$offset} * 2);
-//       height: calc(100% + #{$offset} * 2);
-//     }
-//   }
-// }
-
 .button,
 .trip-button,
 .submit-button {
@@ -187,7 +164,6 @@ footer {
 }
 
 // book now page styling
-
 .form-and-destination {
   display: flex;
   justify-content: space-around;
@@ -224,8 +200,266 @@ input {
 }
 
 //error messaging
-
 .error {
   font-size: 2em;
   color: blue;
+}
+
+@media screen and (max-width: 1023px) {
+  .html {
+    font-size: 12px;
+  }
+
+  .body {
+    font-size: 12px;
+  }
+
+  .header {
+    height: 12vh;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1%;
+  }
+
+  .nav-buttons {
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    justify-content: space-evenly;
+    align-items: center;
+    button {
+      width: 30%;
+      height: 50%;
+    }
+  }
+
+  .current-trip {
+    height: 60%;
+    width: 80%;
+  }
+
+  .company-name {
+    font-size: 3rem;
+    margin: 1%;
+  }
+
+  .main-aside-content {
+    display: flex;
+    height: 80vh;
+    padding: 0 0 1em 1em;
+  }
+
+  .aside {
+    width: 20%;
+    height: 100%;
+    .trip-buttons-wrapper {
+      height: 40%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      button {
+        width: 80%;
+        height: 25%;
+      }
+    }
+    .current-trip {
+      height: 60%;
+      width: 80%;
+    }
+  }
+
+  .trip-button {
+    height: 10%;
+    width: 80%;
+  }
+
+  main {
+    width: 80%;
+    // background-color: cadetblue;
+    height: 100%;
+    overflow-y: scroll;
+    padding-right: 2%;
+    padding-left: 2%;
+  }
+
+  h2 {
+    height: 10%;
+  }
+
+  .trip-header,
+  .main-header {
+    font-size: 2rem;
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+  }
+
+  footer {
+    height: 8vh;
+    position: sticky;
+    bottom: 0;
+  }
+
+  // trips/destinations cards
+  .cards-grid {
+    height: 90%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+    gap: 2em;
+    grid-auto-flow: row;
+    padding-top: 1.7%;
+  }
+
+  .destination-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .card {
+    height: auto;
+  }
+
+  .city {
+    font-size: 1.5em;
+  }
+
+  .destination-image {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 5%;
+  }
+
+  // all buttons styling
+  .button,
+  .trip-button,
+  .submit-button {
+    cursor: pointer;
+    background-color: white;
+    font-family: Poppins, sans-serif;
+    border-radius: 10px;
+    border: 1px solid black;
+    font-weight: bold;
+    &:hover {
+      background-color: rgb(220, 244, 244);
+      border: none;
+    }
+  }
+
+  .grow {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  // book now page styling
+  .form-and-destination {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+  }
+
+  .trip-form {
+    display: flex;
+    flex-direction: column;
+    padding-left: 5%;
+    height: 100%;
+  }
+
+  input {
+    font-family: Poppins, sans-serif;
+  }
+
+  label {
+    padding: 10%;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  .submit-button {
+    width: 106%;
+    padding: 4%;
+  }
+
+  //error messaging
+  .error {
+    font-size: 2em;
+    color: blue;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  html {
+    font-size: 8px;
+  }
+
+  aside {
+    display: none;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  main {
+    width: 90%;
+    // background-color: cadetblue;
+    height: 100%;
+    overflow-y: none;
+    padding-right: 2%;
+    padding-left: 2%;
+  }
+
+  .main-aside-content {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    padding: 0 0 1em 1em;
+  }
+
+  section.current {
+    display: none;
+  }
+  .nav-buttons {
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    justify-content: space-evenly;
+    align-items: center;
+    button {
+      width: 40%;
+      height: 50%;
+    }
+  }
+}
+
+.nav-buttons {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  justify-content: space-evenly;
+  align-items: center;
+  button {
+    width: 40%;
+    height: 50%;
+  }
+
+  .destination-image {
+    width: 200px;
+    border-radius: 12px;
+    margin-bottom: 5%;
+  }
 }
