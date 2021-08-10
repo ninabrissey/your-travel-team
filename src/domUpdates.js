@@ -18,14 +18,20 @@ import {
   trips,
   destinationsData,
   mainDisplay,
+
   // cardsGrid,
 } from './scripts';
 
 // query selectors 👇
+let destinationSelected;
+
+// const totalSpentYTD = document.getElementById('totalSpentYTD');
 const cardsGrid = document.getElementById('cardsGrid');
 const mainHeader = document.getElementById('mainHeader');
 const currentTripCard = document.getElementById('currentTrip');
-
+// const bookTripBtn = document.getElementById('bookNow');
+const logoutBtn = document.getElementById('logout');
+const totalSpentYTD = document.getElementById('totalSpentYTD');
 // const upComingTripBtn = document.getElementById('upcomingTrips');
 // const pendingTripBtn = document.getElementById('pendingTrips');
 // const pastTripBtn = document.getElementById('pastTrips');
@@ -36,7 +42,13 @@ const currentTripCard = document.getElementById('currentTrip');
 // display upon user log on 👇
 const displayTravelerDashBoard = (traveler, trips) => {};
 
+export const displayYearToDateSpent = () => {
+  console.log(currentTraveler);
+  totalSpentYTD.innerText = `Total spent traveling with us this year: $${currentTraveler.spendingYTD}`;
+};
+
 export const renderDestinationsGrid = () => {
+  cardsGrid.classList.add('cards-grid');
   mainDisplay.addEventListener('click', displayBookTripPage);
   mainHeader.innerText = 'Choose Destination';
   cardsGrid.innerHTML = '';
@@ -44,7 +56,7 @@ export const renderDestinationsGrid = () => {
     cardsGrid.innerHTML += `
     <section class="card" id=${destination.id}>
       <div class="destination-card">
-        <img class="destination-image grow" id=${destination.id} name=${destination.destination} src="${destination.image}" alt="${destination.alt}">
+        <img class="destination-image grow" id=${destination.id} name="${destination.destination}" src="${destination.image}" alt="${destination.alt}">
         <div class="destination-details">
           <h4 class="city">${destination.destination}</h4>
           <p class="lodging-cost">Estimated lodging: $${destination.estimatedLodgingCostPerDay} / night</p>
@@ -57,20 +69,23 @@ export const renderDestinationsGrid = () => {
 };
 
 // display upon user input once logged in 👇
-const makeTripCostString = (trip) => {
-  return `$${trip.cost}`;
-  // let tripCost = `$${trip.cost}`;
+// export const makeTripCostString = () => {
+//   let ytdSpent = `$${currentTraveler.getSpendingYTD(dateToday)}`;
 
-  // console.log(tripCost);
+//   console.log(ytdSpent);
 
-  // return [
-  //   tripCost.slice(0, tripCost.length - 6),
-  //   ',',
-  //   tripCost.slice(tripCost.length - 6),
-  // ].join('');
-};
+///finish this function and commit
+
+// return [
+//   tripCost.slice(0, tripCost.length - 6),
+//   ',',
+//   tripCost.slice(tripCost.length - 6),
+// ].join('');
+// };
 
 export const renderTripsGrid = (e) => {
+  cardsGrid.classList.add('cards-grid');
+  console.log(currentTraveler);
   mainDisplay.removeEventListener('click', displayBookTripPage);
   // dont need this trip type variable if you are not using it
   let tripType = e.target.id;
@@ -90,14 +105,12 @@ export const renderTripsGrid = (e) => {
       cardsGrid.innerHTML += `
       <section class="card">
       <div class="destination-card">
-        <img class="destination-image" src="${
-          trip.tripsDestination.image
-        }" alt="${trip.tripsDestination.alt}">
+        <img class="destination-image" src="${trip.tripsDestination.image}" alt="${trip.tripsDestination.alt}">
         <div class="destination-details">
           <h4 class="city">${trip.tripsDestination.destination}</h4>
           <p class="lodging-cost">Number of travelers: ${trip.travelers}</p>
           <p class="lodging-cost">Travel dates: ${startDate} - ${endDate}</p>
-          <p class="flight-cost">Trip cost: ${makeTripCostString(trip)}</p>
+          <p class="flight-cost">Trip cost: ${trip.cost}</p>
         </div>
       </div>
       `;
@@ -115,68 +128,133 @@ export const renderCurrentTrip = () => {
     <h3>Your current trip: <h3>
     <section class="card">
     <div class="destination-card">
-      <img class="destination-image" src="${
-        currentTraveler.currentTrip.tripsDestination.image
-      }" alt="${currentTraveler.currentTrip.tripsDestination.alt}">
+      <img class="destination-image" src="${currentTraveler.currentTrip.tripsDestination.image}" alt="${currentTraveler.currentTrip.tripsDestination.alt}">
       <div class="destination-details">
-        <h4 class="city">${
-          currentTraveler.currentTrip.tripsDestination.destination
-        }</h4>
-        <p class="lodging-cost">Number of travelers: ${
-          currentTraveler.currentTrip.travelers
-        }</p>
+        <h4 class="city">${currentTraveler.currentTrip.tripsDestination.destination}</h4>
+        <p class="lodging-cost">Number of travelers: ${currentTraveler.currentTrip.travelers}</p>
         <p class="lodging-cost">Travel dates: ${startDate} - ${endDate}</p>
-        <p class="flight-cost">Trip cost: ${makeTripCostString(
-          currentTraveler.currentTrip
-        )}</p>
+        <p class="flight-cost">Trip cost: $${currentTraveler.currentTrip.cost}</p>
       </div>
     </div>
   `;
 };
 
 export const displayBookTripPage = (e) => {
-  mainDisplay.removeEventListener('click', displayBookTripPage);
-  console.log(e.target);
-  let destinationID = e.target.id;
-  let destinationCard = e.target.innerHTML;
-  console.log(destinationID);
+  if (typeof eval(e.target.id) === 'number') {
+    const destinationID = parseInt(e.target.id);
+    destinationSelected = destinationsData.find(
+      (destinationData) => destinationData.id === destinationID
+    );
+    mainDisplay.removeEventListener('click', displayBookTripPage);
 
-  if (typeof destinationID === 'number' || destinationID !== 'main') {
-    console.log(destinationCard, 'in displayBookTripPage function');
     mainHeader.innerText = 'Plan Your Trip';
     cardsGrid.innerHTML = '';
-    cardsGrid.innerHTML = `
-      ${destinationCard}
-      `;
-    // cardsGrid.innerHTML = `
-    // <section class="card" id=${destination.id}>
-    //   <div class="destination-card">
-    //     <img class="destination-image" src="${destination.image}" alt="${destination.alt}">
-    //     <div class="destination-details">
-    //       <h4 class="city">${destination.destination}</h4>
-    //       <p class="lodging-cost">Estimated lodging: $${destination.estimatedLodgingCostPerDay} / night</p>
-    //       <p class="flight-cost">Estimated roundtrip flight: $${destination.estimatedFlightCostPerPerson}</p>
-    //     </div>
-    //   </div>
-    // </section>
-    // `;
+    cardsGrid.classList.remove('cards-grid');
+    cardsGrid.innerHTML += `
+    <div class="form-and-destination"
+      <section class="selected-destination-card" id=${destinationSelected.id}>
+        <div class="destination-card">
+          <img class="destination-image" id=${destinationSelected.id} name="${
+      destinationSelected.destination
+    }" src="${destinationSelected.image}" alt="${destinationSelected.alt}">
+          <div class="destination-details">
+            <h4 class="city">${destinationSelected.destination}</h4>
+            <p class="lodging-cost">Estimated lodging: $${
+              destinationSelected.estimatedLodgingCostPerDay
+            } / night</p>
+            <p class="flight-cost">Estimated roundtrip flight: $${
+              destinationSelected.estimatedFlightCostPerPerson
+            }</p>
+          </div>
+        </div>
+      </section>
+      <section class="trip-form">
+        <label>Departure:
+          <input type="date" id="start" name="trip"
+          placeholder="${dayjs().format('YYYY-MM-DD')}"
+          min="${dayjs().format('YYYY-MM-DD')}" max="${dayjs()
+      .add(1, 'year')
+      .format('YYYY-MM-DD')}" required>
+        </label>
+        <br>
+        <label>Return:
+          <input type="number" id="duration" name="trip" placeholder="1" min="1" required>
+          </label>
+        <br>
+        <label>Number of travelers:
+          <input type="number" id="travelers" name="trip" placeholder="1" min="1" required>
+        </label>
+        <br>
+        <button class= "submit-button" id="getEstimate">Get trip estimate</button>
+      </section>
+    </div>
+    `;
+
+    document
+      .getElementById('getEstimate')
+      .addEventListener('click', getTripEstimate);
+  }
+};
+
+const getTripEstimate = () => {
+  // e.preventDefault();
+  const startDate = document.getElementById('start').value;
+  const formattedStartDate = dayjs(startDate).format('YYYY/MM/DD');
+  console.log('startDate:', formattedStartDate);
+  const duration = document.getElementById('duration').value;
+  console.log('duration:', duration);
+  const numOfTravelers = document.getElementById('travelers').value;
+  console.log('numOfTraveler:', numOfTravelers);
+
+  if (formattedStartDate || !duration || !numOfTravelers) {
+    cardsGrid.innerHTML += `
+      <br>
+      <p>PLEASE FILL OUT ALL FORM DATA BEFORE SUBMISSION</p>
+    `;
+    return;
+  } else {
   }
 
-  const submitTrip = () => {
-    // cardsGrid.addEventListener('click', displayBookTripPage);
+  const createPostObject = (destinationID) => {
+    let tripRequest = {
+      id: Date.now(),
+      userID: currentTraveler.id,
+      destinationID: destinationID,
+      travelers: travelersInput.value,
+      date: dateInput.value,
+      duration: durationInput.value,
+      status: 'pending',
+      suggestedActivities: [],
+    };
+    postData(tripRequest);
   };
 
-  const logOut = () => {
-    // cardsGrid.removeEventListener('click', displayBookTripPage);
-  };
+  /*use to get destination and run other functions*/
 
-  //   <main id='main'>
-  //   <h2 class="main-header" id='mainHeader'>Choose Destination</h2>
-  //     <div class="cards-grid" id='cardsGrid'>
-  //       <!-- destination or categorized trip cards append here -->
-  //     </div>
-  // </main>
+  // const startDate = document.getElementById('start').value;
+  // console.log('startDate:', startDate);
+  // const duration = document.getElementById('duration').value;
+  // console.log('endDate:', duration);
+  // const numOfTravelers = document.getElementById('travelers').value;
+  // console.log('numOfTravelers:', numOfTravelers);
+
+  destinationSelected.id; /*use to get destination and run other functions*/
+  console.log('destinationSelected.id:', destinationSelected.id);
+
+  //need to capture the data
+  //make a post object
+  //post it
+  //get response
+  //error - handle
 };
+
+const requestTrip = () => {};
+
+const logOut = () => {
+  // cardsGrid.removeEventListener('click', displayBookTripPage);
+};
+
+//
 
 const showErrorMessage = () => {
   //error.status
