@@ -1,23 +1,19 @@
 // scripts 👇
-import { fetchAllData, postData } from './apiCalls';
+import { fetchAllData, postData, fetchData } from './apiCalls';
 import * as dayjs from 'dayjs';
 import Trip from './Trip';
 import Traveler from './Traveler';
 import {
   renderDestinationsGrid,
   renderTripsGrid,
-  renderCurrentTrip,
   displayBookTripPage,
-  displayYearToDateSpent,
-  // getTripEstimate,
   displayTravelerDashBoard,
   displayEstimatedTripCost,
   displayFormNotFilledError,
-  // getEstimateBtn,
   destinationSelected,
-  getEstimateBtn,
   hide,
   show,
+  displaySuccessfulTripRequest,
 } from './domUpdates';
 
 // export let getEstimateBtn;
@@ -40,6 +36,7 @@ export const mainDisplay = document.getElementById('main');
 export const bookTripBtn = document.getElementById('bookNow');
 
 // global variables 👇
+let currentUserID;
 export let dateToday = dayjs().format('YYYY/MM/DD');
 export let currentTraveler;
 export let trips;
@@ -61,8 +58,10 @@ function validatePassword() {
   ) {
     username.value = null;
     userPassword.value = null;
-    startApp();
+    currentUserID = passwordNumber;
+    getAllData();
   } else {
+    username.value = null;
     userPassword.value = null;
     show(loginErrorMessage);
     setTimeout(function () {
@@ -71,15 +70,14 @@ function validatePassword() {
   }
 }
 
-const startApp = () => {
-  fetchAllData()
+const getAllData = () => {
+  fetchAllData(currentUserID)
     .then((data) => {
       let travelerData = data[0];
       tripsData = data[1].trips;
       destinationsData = data[2].destinations;
       getTrips(tripsData, travelerData, destinationsData);
       getTraveler(travelerData, trips);
-      console.log('in fetch data');
     })
     .then(displayDashboard);
 };
@@ -91,6 +89,7 @@ const getTrips = (tripsData, travelerData, destinationsData) => {
       const instantiatedTrip = new Trip(trip, destinationsData);
       return instantiatedTrip;
     });
+  console.log(trips);
 };
 
 const getTraveler = (travelerData, instantiatedTrips) => {
@@ -112,35 +111,21 @@ const displayDashboard = (dateToday) => {
   updateClassProperties(dateToday);
   currentTraveler.getSpendingYTD(dateToday);
   displayTravelerDashBoard();
-};
 
-export const postUserTrip = () => {
-  const tripRequestObject = {
-    id: tripDetails.id,
-    userID: tripDetails.userID,
-    destinationID: tripDetails.destinationID,
-    travelers: tripDetails.travelers,
-    date: tripDetails.date,
-    duration: tripDetails.duration,
-    status: tripDetails.status,
-    suggestedActivities: [],
-  };
-  postData(tripRequestObject, 'trips');
+  console.log(' currentTraveler.spendingYTD:', currentTraveler);
 };
 
 export const getTripEstimate = () => {
-  const tripForm = document.getElementById('tripForm');
-  const tripDate = document.getElementById('start').value;
-  const formattedStartDate = dayjs(tripDate).format('YYYY/MM/DD');
-  const duration = document.getElementById('duration').value;
-  const numOfTravelers = document.getElementById('travelers').value;
+  let tripForm = document.getElementById('tripForm');
+  let tripDate = document.getElementById('start').value;
+  let formattedStartDate = dayjs(tripDate).format('YYYY/MM/DD');
+  let duration = document.getElementById('duration').value;
+  let numOfTravelers = document.getElementById('travelers').value;
 
   if (formattedStartDate === '' || !duration || !numOfTravelers) {
-    displayFormNotFilledError();
-    git;
+    displayFormNotFilledError(tripDate, duration, numOfTravelers);
     return;
   }
-
   if (!formattedStartDate || duration || numOfTravelers) {
     hide(tripForm);
 
@@ -168,14 +153,51 @@ export const getTripEstimate = () => {
   }
 };
 
-// for dynamically adding
-export const querySelectAndAddListener = (id, eve, func) => {
-  document.getElementById(`${id}`).addEventListener(`${eve}`, func);
+export const postUserTrip = () => {
+  const tripRequestObject = {
+    id: tripDetails.id,
+    userID: tripDetails.userID,
+    destinationID: tripDetails.destinationID,
+    travelers: tripDetails.travelers,
+    date: tripDetails.date,
+    duration: tripDetails.duration,
+    status: tripDetails.status,
+    suggestedActivities: [],
+  };
+  postData(tripRequestObject, 'trips').then(() => {
+    displaySuccessfulTripRequest();
+    getAllData();
+  });
+  // setTimeout(renderDestinationsGrid, 10000);
 };
+
+// const timeout = () => {
+//   setTimeout(renderDestinationsGrid, 6000);
+// };
+
+// let newApprovedTrip = new Trip(data.newTrip);
+// newApprovedTrip.updateTripProperties();
+// currentTraveler.pendingTrips.unshift(newApprovedTrip);
+// getSpendingYTD(dateToday);
+
+// const addToPendingTrips = (data) => {
+//   let newApprovedTrip = new Trip(data.newTrip);
+//   newApprovedTrip.updateTripProperties();
+//   currentTraveler.pendingTrips.unshift(newApprovedTrip);
+//   getSpendingYTD(dateToday);
+//   setTimeout(function () {
+//     renderDestinationsGrid();
+//   }, 6000);
+// };
 
 const logoutOfApp = () => {
   show(loginPage);
   hide(travelerDashboard);
+};
+
+// for dynamically adding querySelectors
+export const querySelectAndAddListener = (id, eve, func) => {
+  document.getElementById(`${id}`).addEventListener(`${eve}`, func);
 };
 
 // event listeners 👇
