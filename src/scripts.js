@@ -11,6 +11,8 @@ import {
   displayYearToDateSpent,
   getTripEstimate,
   displayTravelerDashBoard,
+  hide,
+  show,
 } from './domUpdates';
 
 // styling 👇
@@ -19,6 +21,13 @@ import './css/_reset.scss';
 import './css/_variables.scss';
 
 // query selectors 👇
+let username = document.getElementById('username');
+let userPassword = document.getElementById('userPassword');
+const travelerDashboard = document.getElementById('travelerDashboard');
+const loginPage = document.getElementById('loginPage');
+const loginBtn = document.getElementById('loginBtn');
+const loginErrorMessage = document.getElementById('loginErrorMessage');
+const logoutBtn = document.getElementById('logoutBtn');
 const tripsButtons = document.getElementById('aside');
 export const mainDisplay = document.getElementById('main');
 export const bookTripBtn = document.getElementById('bookNow');
@@ -36,6 +45,28 @@ export let tripsData;
 // display on load 👇
 
 // event handlers and functions 👇
+function validatePassword() {
+  let passwordString = username.value.slice(0, 8);
+  let passwordNumber = parseInt(username.value.slice(8, 10));
+  if (
+    username.value.length < 11 &&
+    passwordString === 'traveler' &&
+    passwordNumber > 0 &&
+    passwordNumber < 51 &&
+    userPassword.value === 'travel'
+  ) {
+    username.value = null;
+    userPassword.value = null;
+    startApp();
+  } else {
+    userPassword.value = null;
+    show(loginErrorMessage);
+    setTimeout(function () {
+      hide(loginErrorMessage);
+    }, 4000);
+  }
+}
+
 const startApp = () => {
   fetchAllData()
     .then((data) => {
@@ -72,20 +103,22 @@ const updateClassProperties = (dateToday) => {
 };
 
 const displayDashboard = (dateToday) => {
+  hide(loginPage);
+  show(travelerDashboard);
   updateClassProperties(dateToday);
   currentTraveler.getSpendingYTD(dateToday);
   displayTravelerDashBoard();
 };
 
-// .catch((error) => showErrorMessage(error));
-// .then((data) => console.log(data));
-
-// when do you I need to error handle???
+const logoutOfApp = () => {
+  show(loginPage);
+  hide(travelerDashboard);
+};
 
 // event listeners 👇
-window.addEventListener('load', startApp);
+
 tripsButtons.addEventListener('click', renderTripsGrid);
 mainDisplay.addEventListener('click', displayBookTripPage);
 bookTripBtn.addEventListener('click', renderDestinationsGrid);
-
-// getEstimateBtn.addEventListener('click', getTripEstimate);
+loginBtn.addEventListener('click', validatePassword);
+logoutBtn.addEventListener('click', logoutOfApp);
