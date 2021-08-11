@@ -1,0 +1,96 @@
+@mixin tablet-screen() {
+  .html {
+    font-size: 12px;
+  }
+
+  .body {
+    font-size: 12px;
+  }
+
+  .header {
+    height: 12vh;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1%;
+  }
+
+  .nav-buttons {
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    justify-content: space-evenly;
+    align-items: center;
+    button {
+      width: 30%;
+      height: 50%;
+    }
+  }
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@mixin secondary-button {
+  width: 30%;
+  height: 50%;
+}
+
+@mixin media-mobile-screen() {
+  html {
+    font-size: 8px;
+  }
+
+  aside {
+    height: 10%;
+  }
+
+  main {
+    width: 90%;
+    height: 100%;
+    overflow-y: none;
+    padding-right: 2%;
+    padding-left: 2%;
+  }
+
+  .main-aside-content {
+    display: flex;
+    flex-direction: row;
+    height: 80vh;
+    padding: 0 0 1em 1em;
+  }
+
+  section.current {
+    display: none;
+  }
+  .nav-buttons {
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    justify-content: space-evenly;
+    align-items: center;
+    button {
+      width: 40%;
+      height: 50%;
+    }
+  }
+}
+
+.nav-buttons {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  justify-content: space-evenly;
+  align-items: center;
+  button {
+    width: 40%;
+    height: 50%;
+  }
+
+  .destination-image {
+    width: 50vh;
+    border-radius: 12px;
+    margin-bottom: 5%;
+  }
+}

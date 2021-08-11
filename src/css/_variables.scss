@@ -1,10 +1,8 @@
 // do I need to import these seperate scss files into my base.scss file?
 
 /* This is an example of using Sass, otherwise plain CSS works too*/
-$secondary-background: burlywood;
+$font-primary: Poppins, sans-serif;
 
-// $secondary-background: radial-gradient(
-//   circle,
-//   rgba(63, 94, 251, 1) 0%,
-//   rgba(252, 70, 107, 1) 100%
-// );
+$primary-text: black;
+
+$padding-right: 0 0 1em 1em;

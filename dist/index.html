@@ -8,22 +8,8 @@
   <title>You Travel Tracker</title>
 </head>
 <body>
-  <!-- login section 👇 -->
-  <form class="body login-section" id="loginPage">
-    <h1 class="login-title">Your Travel Team</h1>
-    <label class="login-label">Username:
-      <input id="username" autocomplete="off" type="text" for="login" name="login" placeholder="username" value="traveler1" required>
-      </label>
-    <br>
-    <label class="login-label">Password:
-      <input id="userPassword" autocomplete="off" type="password" id="pass" name="password" value="travel" required>
-    </label>
-    <br>
-    <button class="login-button submit-button" id="loginBtn">Login</button>
-    <h2 class="hidden login-error" id="loginErrorMessage">Your username and/or password are incorrect</h2>
-  </form> 
-  <!-- traveler dashboard 👇 -->
-  <section class="body hidden" id="travelerDashboard">
+
+  <section class="body" id="travelerDashboard">
   <header class="header">
     <h1 class="company-name">Your Travel Team</h1>
     <nav class="nav-buttons">
@@ -56,10 +42,10 @@
   </div>
   <footer class="footer">
     <div class="footer-info">
-      <p>A project at Turing School of Software and Design</p>
-      <p>Created using vanilla Javascript by Nina Brissey</p>
+      <p class="footer-text">A project at Turing School of Software and Design</p>
+      <p class="footer-text">Created using vanilla Javascript by Nina Brissey</p>
     </div>
-    <h3 class="total-spent-yearly" id="totalSpentYTD">Total spent traveling with us this year:</h3>
+    <h3 class="total-spent-yearly footer-text" id="totalSpentYTD">Total spent traveling with us this year:</h3>
   </footer>
   </section>
   <script src="bundle.js"></script>
