@@ -8,6 +8,52 @@
 
 //above is not dong anything for my text size. My text is not responsive at all
 
+.login-section {
+  font-family: Poppins, sans-serif;
+  font-size: 16px;
+  color: black;
+  height: 40vh;
+  padding: 3%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .login-title {
+    font-size: 2.8em;
+    margin-bottom: 2%;
+  }
+
+  button {
+    font-family: Poppins, sans-serif;
+    font-size: 1.5em;
+    width: 34%;
+    height: 5%;
+    padding: 3%;
+    margin-left: 3%;
+    margin-top: 1.5%;
+    border: 2px solid black;
+  }
+}
+
+.login-button {
+  margin-right: 2.2%;
+  font: 0.5;
+}
+
+.login-label {
+  width: 33.2%;
+  border-radius: 3px;
+  padding: 10px;
+  font-size: 2em;
+}
+
+.username-login,
+.username-password {
+  width: 10%;
+  border-radius: 5px;
+}
+
 .body {
   height: 100vh;
   display: flex;
@@ -17,6 +63,7 @@
   font-size: 16px;
   overflow: hidden;
   min-width: 600px;
+  margin-right: 2%;
 }
 
 .header {
@@ -101,10 +148,18 @@ h2 {
   background-color: #ffffff;
 }
 
-footer {
+.footer {
   height: 8vh;
   position: sticky;
   bottom: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.total-spent-yearly,
+.footer-info {
+  margin-left: 3%;
+  margin-right: 3%;
 }
 
 // trips/destinations cards
@@ -294,12 +349,6 @@ input {
     position: sticky;
     top: 0;
     background-color: #ffffff;
-  }
-
-  footer {
-    height: 8vh;
-    position: sticky;
-    bottom: 0;
   }
 
   // trips/destinations cards
