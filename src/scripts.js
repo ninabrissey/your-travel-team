@@ -21,7 +21,7 @@ import './css/_variables.scss';
 // query selectors 👇
 const tripsButtons = document.getElementById('aside');
 export const mainDisplay = document.getElementById('main');
-const bookTripBtn = document.getElementById('bookNow');
+export const bookTripBtn = document.getElementById('bookNow');
 const getEstimateBtn = document.getElementById('getEstimate');
 
 // global variables 👇

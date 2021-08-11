@@ -1,3 +1,7 @@
+//imports 👇
+import { displaySuccessfulTripRequest } from './domUpdates';
+import Trip from './Trip';
+
 // fetch get 👇
 const fetchData = (type) => {
   return fetch(`http://localhost:3001/api/v1/${type}`)
@@ -31,7 +35,12 @@ export const postData = (postObject, type) => {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(postObject),
-  }).then((response) => checkForError(response));
+  })
+    .then((response) => checkForError(response))
+    .then((response) => {
+      displaySuccessfulTripRequest(response.newTrip);
+    })
+    .catch((error) => console.log(error));
 };
 
 // possible error handling - pick this or try catch

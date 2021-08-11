@@ -12,6 +12,7 @@ import {
   destinationsData,
   mainDisplay,
   tripsData,
+  bookTripBtn,
 } from './scripts';
 let destinationSelected;
 export let tripRequest;
@@ -32,7 +33,6 @@ export const displayTravelerDashBoard = (traveler, trips) => {
 };
 
 export const displayYearToDateSpent = () => {
-  console.log(currentTraveler);
   totalSpentYTD.innerText = `Total spent traveling with us this year: $${currentTraveler.spendingYTD}`;
 };
 
@@ -83,7 +83,7 @@ export const renderTripsGrid = (e) => {
   cardsGrid.classList.add('cards-grid');
   console.log(currentTraveler);
   mainDisplay.removeEventListener('click', displayBookTripPage);
-  const tripType = e.target.id;
+  let tripType = e.target.id;
   if (
     e.target.id === 'upcomingTrips' ||
     e.target.id === 'pastTrips' ||
@@ -119,7 +119,7 @@ export const displayBookTripPage = (e) => {
     destinationSelected = destinationsData.find(
       (destinationData) => destinationData.id === destinationID
     );
-    console.log(destinationSelected);
+
     mainDisplay.removeEventListener('click', displayBookTripPage);
 
     mainHeader.innerText = 'Plan Your Trip';
@@ -241,12 +241,36 @@ const postUserTrip = () => {
     status: tripDetails.status,
     suggestedActivities: [],
   };
-  try {
-    postData(tripRequestObject, 'trips');
-  } catch (exception_var) {
-    console.log('xception_var:', exception_var);
-  }
+  postData(tripRequestObject, 'trips');
 };
+
+export const displaySuccessfulTripRequest = (response) => {
+  document.getElementById('confirmTripBtn').innerHTML = `
+  <h4>Thank you for having<br>us on your team.</h4>
+  <h3>Your can find your trip<br>in your pending trips</h3>
+  <p>Book another trip!</p>
+  `;
+  // addToPendingTrips(response);
+  // setTimeout(function () {
+  //   renderDestinationsGrid();
+  // }, 6000);
+};
+
+const addToPendingTrips = (approvedTrip) => {
+  let approved = new Trip(approvedTrip);
+  approved.updateTripProperties();
+  currentTraveler.pendingTrips.unshift(approved);
+  getSpendingYTD(dateToday);
+  setTimeout(function () {
+    renderDestinationsGrid();
+  }, 6000);
+};
+
+// try {
+//   postData(tripRequestObject, 'trips');
+// } catch (exception_var) {
+//   console.log('xception_var:', exception_var);
+// }
 
 const hide = (element) => {
   element.classList.add('hidden');
