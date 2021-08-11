@@ -37,7 +37,7 @@ export const bookTripBtn = document.getElementById('bookNow');
 
 // global variables 👇
 let currentUserID;
-export let dateToday = dayjs().format('YYYY/MM/DD');
+export const dateToday = dayjs().format('YYYY/MM/DD');
 export let currentTraveler;
 export let trips;
 export let destinationsData;
@@ -89,30 +89,28 @@ const getTrips = (tripsData, travelerData, destinationsData) => {
       const instantiatedTrip = new Trip(trip, destinationsData);
       return instantiatedTrip;
     });
-  console.log(trips);
 };
 
 const getTraveler = (travelerData, instantiatedTrips) => {
   currentTraveler = new Traveler(travelerData, instantiatedTrips);
 };
 
-const updateClassProperties = (dateToday) => {
+const updateClassProperties = () => {
   trips.forEach((trip) => {
     trip.updateTripProperties();
   });
+  trips;
   currentTraveler.sortAllTripsByDate(dateToday);
   currentTraveler.categorizeTrips(dateToday);
-  currentTraveler.getSpendingYTD(dateToday);
+  // currentTraveler.getSpendingYTD(dateToday);
 };
 
-const displayDashboard = (dateToday) => {
+const displayDashboard = () => {
   hide(loginPage);
   show(travelerDashboard);
   updateClassProperties(dateToday);
   currentTraveler.getSpendingYTD(dateToday);
   displayTravelerDashBoard();
-
-  console.log(' currentTraveler.spendingYTD:', currentTraveler);
 };
 
 export const getTripEstimate = () => {
@@ -144,7 +142,6 @@ export const getTripEstimate = () => {
     currentTraveler.stagedTrip = new Trip(tripDetails, destinationsData);
     currentTraveler.stagedTrip.updateTripProperties();
     let tripEstimate = currentTraveler.stagedTrip.cost;
-    console.log(tripEstimate);
     displayEstimatedTripCost(duration, tripEstimate, numOfTravelers);
 
     document
@@ -168,27 +165,7 @@ export const postUserTrip = () => {
     displaySuccessfulTripRequest();
     getAllData();
   });
-  // setTimeout(renderDestinationsGrid, 10000);
 };
-
-// const timeout = () => {
-//   setTimeout(renderDestinationsGrid, 6000);
-// };
-
-// let newApprovedTrip = new Trip(data.newTrip);
-// newApprovedTrip.updateTripProperties();
-// currentTraveler.pendingTrips.unshift(newApprovedTrip);
-// getSpendingYTD(dateToday);
-
-// const addToPendingTrips = (data) => {
-//   let newApprovedTrip = new Trip(data.newTrip);
-//   newApprovedTrip.updateTripProperties();
-//   currentTraveler.pendingTrips.unshift(newApprovedTrip);
-//   getSpendingYTD(dateToday);
-//   setTimeout(function () {
-//     renderDestinationsGrid();
-//   }, 6000);
-// };
 
 const logoutOfApp = () => {
   show(loginPage);

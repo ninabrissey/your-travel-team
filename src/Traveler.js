@@ -46,23 +46,21 @@ class Traveler {
   getSpendingYTD(dateToday) {
     let tripsYTD = [];
 
-    this.pastTrips.forEach((trip) => {
+    this.allTrips.forEach((trip) => {
       let startDate = dayjs(trip.date);
-      let dateYearAgo = dayjs(dateToday).subtract(1, 'year');
+      let dateYearAgo = dayjs(dateToday)
+        .subtract(1, 'year')
+        .format('YYYY/MM/DD');
 
       if (dayjs(startDate).isBetween(dateYearAgo, dateToday, null, [])) {
         tripsYTD.push(trip);
       }
     });
-    let totalYTD = [
-      ...tripsYTD,
-      this.currentTrip,
-      ...this.upcomingTrips,
-    ].reduce((total, trip) => {
-      total += trip.cost;
-      return total;
+
+    let totalYTD = tripsYTD.reduce((total, trip) => {
+      return (total += trip.cost);
     }, 0);
-    this.spendingYTD = Number(totalYTD.toFixed(2));
+    this.spendingYTD = totalYTD;
   }
 }
 
