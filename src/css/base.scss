@@ -39,6 +39,7 @@
 .login-button {
   margin-right: 2.2%;
   font: 0.5;
+  margin-bottom: 3%;
 }
 
 .login-label {
@@ -52,6 +53,9 @@
 .username-password {
   width: 10%;
   border-radius: 5px;
+}
+.login-error {
+  font-size: 14px;
 }
 
 .body {

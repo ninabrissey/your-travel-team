@@ -9,25 +9,26 @@
 </head>
 <body>
   <!-- login section 👇 -->
-  <section class="body login-section hidden" id="login">
+  <form class="body login-section" id="loginPage">
     <h1 class="login-title">Your Travel Team</h1>
     <label class="login-label">Username:
-      <input id="username-login" autocomplete="off" type="text" for="login" name="login" placeholder="username" required>
+      <input id="username" autocomplete="off" type="text" for="login" name="login" placeholder="username" required>
       </label>
     <br>
     <label class="login-label">Password:
-      <input id="username-password" autocomplete="off" type="text" id="login" name="login" placeholder="username" required>
+      <input id="userPassword" autocomplete="off" type="password" id="pass" name="password" required>
     </label>
     <br>
     <button class="login-button submit-button" id="loginBtn">Login</button>
-  </section> 
+    <h2 class="hidden login-error" id="loginErrorMessage">Your username and/or password are incorrect</h2>
+  </form> 
   <!-- traveler dashboard 👇 -->
-  <section class="body" id="traveler-dashboard">
+  <section class="body hidden" id="travelerDashboard">
   <header class="header">
     <h1 class="company-name">Your Travel Team</h1>
     <nav class="nav-buttons">
       <button class="button" id="bookNow">Book Now</button>
-      <button class="button" id="logout">Logout</button>
+      <button class="button" id="logoutBtn">Logout</button>
     </nav>
   </header>
   <div class="main-aside-content">
@@ -55,8 +56,8 @@
   </div>
   <footer class="footer">
     <div class="footer-info">
-      <p>Info here about sources</p>
-      <p>created using vanilla javascript by Nina Brissey</p>
+      <p>A project at Turing School of Software and Design</p>
+      <p>Created using vanilla Javascript by Nina Brissey</p>
     </div>
     <h3 class="total-spent-yearly" id="totalSpentYTD">Total spent traveling with us this year:</h3>
   </footer>
