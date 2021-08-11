@@ -1,54 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" class="html">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>You Travel Tracker</title>
 </head>
+
 <body class="body">
   <header class="header">
-    <h1 class='company-name'>Your Travel Team</h1>
-    <nav class='nav-buttons'>
-        <button class='button' id='bookNow'>Book Now</button>
-        <button class='button' id='logout'>Logout</button>
+    <h1 class="company-name">Your Travel Team</h1>
+    <nav class="nav-buttons">
+      <button class="button" id="bookNow">Book Now</button>
+      <button class="button" id="logout">Logout</button>
     </nav>
   </header>
   <div class="main-aside-content">
-    <aside class='aside' id='aside'>
+    <aside class="aside" id="aside">
       <h2 class="trip-header">Your Trips</h2>
       <div class="trip-buttons-wrapper">
-        <button class='trip-button' id='upcomingTrips'>Upcoming Trips</button>
-        <button class='trip-button' id='pendingTrips'>Pending Trips</button>
-        <button class='trip-button' id='pastTrips'>Past Trips</button>
+        <button class="trip-button" id="upcomingTrips">Upcoming Trips</button>
+        <button class="trip-button" id="pendingTrips">Pending Trips</button>
+        <button class="trip-button" id="pastTrips">Past Trips</button>
       </div>
-      <section class="current-trip" id='currentTrip'> 
+      <section class="current-trip" id="currentTrip">
         <!-- current trip card will append here -->
       </section>
     </aside>
-    <main id='main'>
-      <h2 class="main-header" id='mainHeader'>Choose Destination</h2>
-      <div class="cards-grid" id='cardsGrid'>
+    <main id="main">
+      <h2 class="main-header" id="mainHeader">Choose Destination</h2>
+      <div class="cards-grid" id="cardsGrid">
         <!-- destination cards append here -->
         <!-- or -->
         <!-- categorized trip cards append here -->
         <!-- or -->
         <!-- book now page append here -->
-<!--        
-
-        <form>
-          <label>Departure:
-            <input type='date' required>
-          </label>
-          <label>Return:
-            <input type='date' required>
-          </label>
-          <label>Number of travelers
-            <input type='date' required>
-          </label>
-          <button>Get Estimate</button>
-        </form> -->
-
       </div>
     </main>
   </div>
@@ -57,11 +44,9 @@
       <p>Info here about sources</p>
       <p>created using vanilla javascript by Nina Brissey</p>
     </div>
-    <h3 id='totalSpentYTD'>Total spent traveling with us this year:</h3>
+    <h3 id="totalSpentYTD">Total spent traveling with us this year:</h3>
   </footer>
-  <!-- <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px"> -->
-  <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
   <script src="bundle.js"></script>
-
 </body>
+
 </html>
