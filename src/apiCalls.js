@@ -5,14 +5,8 @@ import Trip from './Trip';
 // fetch get 👇
 const fetchData = (type) => {
   return fetch(`http://localhost:3001/api/v1/${type}`)
-    .then((response) => {
-      if (!response.ok) {
-        throw Error(response.statusText);
-      } else {
-        return response;
-      }
-    })
-    .then((response) => response.json());
+    .then((response) => checkForError(response))
+    .catch((error) => displayErrorMsg(error));
 };
 
 // traveler number will be captured on login and interpolated in. For now, I have hardcoded in a traveler
@@ -37,9 +31,6 @@ export const postData = (postObject, type) => {
     body: JSON.stringify(postObject),
   })
     .then((response) => checkForError(response))
-    .then((response) => {
-      displaySuccessfulTripRequest(response.newTrip);
-    })
     .catch((error) => console.log(error));
 };
 

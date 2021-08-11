@@ -13,10 +13,15 @@ import {
   mainDisplay,
   tripsData,
   bookTripBtn,
+  querySelectAndAddListener,
+  postUserTrip,
+  getTripEstimate,
+  // getEstimateBtn,
 } from './scripts';
-let destinationSelected;
+export let destinationSelected;
 export let tripRequest;
-let tripDetails;
+// export let tripDetails;
+export let getEstimateBtn;
 
 // query selectors 👇
 const cardsGrid = document.getElementById('cardsGrid');
@@ -26,6 +31,7 @@ const logoutBtn = document.getElementById('logout');
 const totalSpentYTD = document.getElementById('totalSpentYTD');
 
 // display upon user log on 👇
+
 export const displayTravelerDashBoard = (traveler, trips) => {
   displayYearToDateSpent();
   renderDestinationsGrid();
@@ -164,7 +170,8 @@ export const displayBookTripPage = (e) => {
       </section>
     </div>
     `;
-    document
+    //could be the problem
+    getEstimateBtn = document
       .getElementById('getEstimate')
       .addEventListener('click', getTripEstimate);
   }
@@ -172,77 +179,88 @@ export const displayBookTripPage = (e) => {
 
 // ________________NEED TO MOVE TO SCRIPTS and Pull OUT DOM UPDATE INFO TO KEEP IN DOM
 
-export const getTripEstimate = () => {
-  const tripForm = document.getElementById('tripForm');
-  const tripDate = document.getElementById('start').value;
-  const formattedStartDate = dayjs(tripDate).format('YYYY/MM/DD');
-  const duration = document.getElementById('duration').value;
-  const numOfTravelers = document.getElementById('travelers').value;
+// export const getTripEstimate = () => {
+//   const tripForm = document.getElementById('tripForm');
+//   const tripDate = document.getElementById('start').value;
+//   const formattedStartDate = dayjs(tripDate).format('YYYY/MM/DD');
+//   const duration = document.getElementById('duration').value;
+//   const numOfTravelers = document.getElementById('travelers').value;
 
-  if (formattedStartDate === '' || !duration || !numOfTravelers) {
-    cardsGrid.innerHTML += `
-      <div id="errorAdjacentElement">
-        <br>
-        <p class="error" id="formError">PLEASE FILL OUT ALL FORM DATA BEFORE SUBMISSION</p>
-      <div>  
-    `;
+//   if (formattedStartDate === '' || !duration || !numOfTravelers) {
+//     displayFormNotFilledError();
+//     // setTimeout(function () {
+//     //   const errorMessage = document.getElementById('formError');
+//     //   errorMessage.remove(0);
+//     // }, 5000);
+//     querySelectAndAddListener(getEstimate, click, getTripEstimate);
+//     // document
+//     //   .getElementById('getEstimate')
+//     //   .addEventListener('click', getTripEstimate);
+//     return;
+//   }
 
-    setTimeout(function () {
-      const errorMessage = document.getElementById('formError');
-      errorMessage.remove(0);
-    }, 5000);
+//   if (!formattedStartDate || duration || numOfTravelers) {
+//     hide(tripForm);
 
-    document
-      .getElementById('getEstimate')
-      .addEventListener('click', getTripEstimate);
-    return;
-  }
+//     tripDetails = {
+//       id: Date.now(),
+//       userID: currentTraveler.id,
+//       destinationID: destinationSelected.id,
+//       travelers: parseInt(numOfTravelers),
+//       date: dayjs(tripDate).format('YYYY/MM/DD'),
+//       duration: parseInt(duration),
+//       status: 'pending',
+//       suggestedActivities: [],
+//       tripsDestination: destinationSelected,
+//     };
 
-  if (!formattedStartDate || duration || numOfTravelers) {
-    hide(tripForm);
+//     currentTraveler.stagedTrip = new Trip(tripDetails, destinationsData);
+//     currentTraveler.stagedTrip.updateTripProperties();
+//     const estimate = currentTraveler.stagedTrip.cost;
 
-    tripDetails = {
-      id: tripsData.length + 1,
-      userID: currentTraveler.id,
-      destinationID: destinationSelected.id,
-      travelers: parseInt(numOfTravelers),
-      date: dayjs(tripDate).format('YYYY/MM/DD'),
-      duration: parseInt(duration),
-      status: 'pending',
-      suggestedActivities: [],
-      tripsDestination: destinationSelected,
-    };
+//     displayEstimatedTripCost();
 
-    currentTraveler.stagedTrip = new Trip(tripDetails, destinationsData);
-    currentTraveler.stagedTrip.updateTripProperties();
-    const estimate = currentTraveler.stagedTrip.cost;
+//     document
+//       .getElementById('confirmTripBtn')
+//       .addEventListener('click', postUserTrip);
+//   }
+// };
 
-    cardsGrid.innerHTML += `
-    <div>
-      <p>You're estimated cost is ${estimate} for ${numOfTravelers} travelers for a duration of ${duration} days.</p>
-      <button class= "submit-button" id="confirmTripBtn">Confirm Trip</button>
-    </div>
-
-    `;
-    document
-      .getElementById('confirmTripBtn')
-      .addEventListener('click', postUserTrip);
-  }
+export const displayFormNotFilledError = () => {
+  cardsGrid.innerHTML += `
+    <div id="errorAdjacentElement">
+      <br>
+      <p class="error" id="formError">PLEASE FILL OUT ALL FORM DATA BEFORE SUBMISSION</p>
+    <div>  
+  `;
+  setTimeout(function () {
+    const errorMessage = document.getElementById('formError');
+    errorMessage.remove(0);
+  }, 5000);
 };
 
-const postUserTrip = () => {
-  const tripRequestObject = {
-    id: tripDetails.id,
-    userID: tripDetails.userID,
-    destinationID: tripDetails.destinationID,
-    travelers: tripDetails.travelers,
-    date: tripDetails.date,
-    duration: tripDetails.duration,
-    status: tripDetails.status,
-    suggestedActivities: [],
-  };
-  postData(tripRequestObject, 'trips');
+export const displayEstimatedTripCost = (days, estimate, numTravelers) => {
+  cardsGrid.innerHTML += `
+  <div>
+    <p>You're estimated cost is ${estimate} for ${numTravelers} travelers for a duration of ${days} days.</p>
+    <button class= "submit-button" id="confirmTripBtn">Confirm Trip</button>
+  </div>
+  `;
 };
+
+// const postUserTrip = () => {
+//   const tripRequestObject = {
+//     id: tripDetails.id,
+//     userID: tripDetails.userID,
+//     destinationID: tripDetails.destinationID,
+//     travelers: tripDetails.travelers,
+//     date: tripDetails.date,
+//     duration: tripDetails.duration,
+//     status: tripDetails.status,
+//     suggestedActivities: [],
+//   };
+//   postData(tripRequestObject, 'trips');
+// };
 
 export const displaySuccessfulTripRequest = (response) => {
   document.getElementById('confirmTripBtn').innerHTML = `
@@ -256,10 +274,10 @@ export const displaySuccessfulTripRequest = (response) => {
   // }, 6000);
 };
 
-const addToPendingTrips = (approvedTrip) => {
-  let approved = new Trip(approvedTrip);
-  approved.updateTripProperties();
-  currentTraveler.pendingTrips.unshift(approved);
+const addToPendingTrips = (trip) => {
+  let newApprovedTrip = new Trip(trip);
+  newApprovedTrip.updateTripProperties();
+  currentTraveler.pendingTrips.unshift(newApprovedTrip);
   getSpendingYTD(dateToday);
   setTimeout(function () {
     renderDestinationsGrid();
@@ -272,11 +290,11 @@ const addToPendingTrips = (approvedTrip) => {
 //   console.log('xception_var:', exception_var);
 // }
 
-const hide = (element) => {
+export const hide = (element) => {
   element.classList.add('hidden');
 };
 
-const show = (element) => {
+export const show = (element) => {
   element.classList.remove('hidden');
 };
 
@@ -290,3 +308,71 @@ const logOut = () => {
 const displayLogin = () => {};
 
 const showErrorMessage = () => {};
+
+// export const getTripEstimate = () => {
+//   const tripForm = document.getElementById('tripForm');
+//   const tripDate = document.getElementById('start').value;
+//   const formattedStartDate = dayjs(tripDate).format('YYYY/MM/DD');
+//   const duration = document.getElementById('duration').value;
+//   const numOfTravelers = document.getElementById('travelers').value;
+
+//   if (formattedStartDate === '' || !duration || !numOfTravelers) {
+//     cardsGrid.innerHTML += `
+//       <div id="errorAdjacentElement">
+//         <br>
+//         <p class="error" id="formError">PLEASE FILL OUT ALL FORM DATA BEFORE SUBMISSION</p>
+//       <div>
+//     `;
+
+//     setTimeout(function () {
+//       const errorMessage = document.getElementById('formError');
+//       errorMessage.remove(0);
+//     }, 5000);
+//     querySelectAndAddListener(getEstimate, click, getTripEstimate);
+//     // document
+//     //   .getElementById('getEstimate')
+//     //   .addEventListener('click', getTripEstimate);
+//     return;
+//   }
+
+//   if (!formattedStartDate || duration || numOfTravelers) {
+//     hide(tripForm);
+
+//     tripDetails = {
+//       id: Date.now(),
+//       userID: currentTraveler.id,
+//       destinationID: destinationSelected.id,
+//       travelers: parseInt(numOfTravelers),
+//       date: dayjs(tripDate).format('YYYY/MM/DD'),
+//       duration: parseInt(duration),
+//       status: 'pending',
+//       suggestedActivities: [],
+//       tripsDestination: destinationSelected,
+//     };
+
+//     currentTraveler.stagedTrip = new Trip(tripDetails, destinationsData);
+//     currentTraveler.stagedTrip.updateTripProperties();
+//     const estimate = currentTraveler.stagedTrip.cost;
+
+//     displayEstimatedTripCost();
+
+//     const displayEstimatedTripCost = () => {
+//       cardsGrid.innerHTML += `
+//       <div>
+//         <p>You're estimated cost is ${estimate} for ${numOfTravelers} travelers for a duration of ${duration} days.</p>
+//         <button class= "submit-button" id="confirmTripBtn">Confirm Trip</button>
+//       </div>
+//       `;
+//     };
+//     cardsGrid.innerHTML += `
+//     <div>
+//       <p>You're estimated cost is ${estimate} for ${numOfTravelers} travelers for a duration of ${duration} days.</p>
+//       <button class= "submit-button" id="confirmTripBtn">Confirm Trip</button>
+//     </div>
+
+//     `;
+//     document
+//       .getElementById('confirmTripBtn')
+//       .addEventListener('click', postUserTrip);
+//   }
+// };
