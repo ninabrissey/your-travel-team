@@ -95,7 +95,7 @@ describe('Traveler', () => {
   it('ahould be able to calculate YTD spending', () => {
     traveler.sortAllTripsByDate();
     traveler.allTrips.forEach((trip) => {
-      trip.calculateTripCost();
+      trip.updateTripProperties();
     });
     traveler.categorizeTrips(dateToday);
     traveler.getSpendingYTD(dateToday);

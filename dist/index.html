@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="html">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,50 +8,61 @@
   <title>You Travel Tracker</title>
 </head>
 <body>
+  <!-- login section 👇 -->
+  <form class="body login-section" id="loginPage">
+    <h1 class="login-title">Your Travel Team</h1>
+    <label class="login-label">Username:
+      <input id="username" autocomplete="off" type="text" for="login" name="login" placeholder="username" required>
+      </label>
+    <br>
+    <label class="login-label">Password:
+      <input id="userPassword" autocomplete="off" type="password" id="pass" name="password" required>
+    </label>
+    <br>
+    <button class="login-button submit-button" id="loginBtn">Login</button>
+    <h2 class="hidden login-error" id="loginErrorMessage">Your username and/or password are incorrect</h2>
+  </form> 
+  <!-- traveler dashboard 👇 -->
+  <section class="body hidden" id="travelerDashboard">
   <header class="header">
-    <h1>Your Travel Team</h1>
-    <nav>
-        <button>Your Trips</button>
-        <button>Book Now</button>
-        <button>Logout</button>
+    <h1 class="company-name">Your Travel Team</h1>
+    <nav class="nav-buttons">
+      <button class="button" id="bookNow">Book Now</button>
+      <button class="button" id="logoutBtn">Logout</button>
     </nav>
   </header>
   <div class="main-aside-content">
-    <aside>
-      <h2>Your Trips</h2>
-      <button class='trip-button'>Upcoming Trips</button>
-      <button class='trip-button'>Pending Trips</button>
-      <button class='trip-button'>Past Trips</button>
-      <section> 
-        <!-- current trip card will display here -->
+    <aside class="aside" id="aside">
+      <h2 class="trip-header">Your Trips</h2>
+      <div class="trip-buttons-wrapper">
+        <button class="trip-button" id="upcomingTrips">Upcoming Trips</button>
+        <button class="trip-button" id="pendingTrips">Pending Trips</button>
+        <button class="trip-button" id="pastTrips">Past Trips</button>
+      </div>
+      <section class="current-trip" id="currentTrip">
+        <!-- current trip card will append here -->
       </section>
     </aside>
-    <main>
-      <h2>Upcoming Trips</h2>
-        <!-- <div class="grid-wrapper">
-          <section class="trip-card">
-            <div class="park-img">
-              <img class= "park-info-icon" src="assets/up-arrow.png" alt="arrow icon">
-              <div class="visits">
-                <p class="visits-p">Visits</p>
-                <p class="num-visits">30</p>
-              </div>
-            </div>
-          </section>
-        </div> -->
-      <!-- trip cards will append here. on page load will start with upcoming trips -->
+    <main id="main">
+      <h2 class="main-header" id="mainHeader">Choose Destination</h2>
+      <div class="cards-grid" id="cardsGrid">
+        <!-- destination cards append here -->
+        <!-- or -->
+        <!-- categorized trip cards append here -->
+        <!-- or -->
+        <!-- book now page append here -->
+      </div>
     </main>
   </div>
-  <footer>
-    <div>
-      <p>Info here about sources</p>
-      <p>created using vanilla javascript by Nina Brissey</p>
+  <footer class="footer">
+    <div class="footer-info">
+      <p>A project at Turing School of Software and Design</p>
+      <p>Created using vanilla Javascript by Nina Brissey</p>
     </div>
-    <h3>Total spent traveling with us this year: xx</h3>
+    <h3 class="total-spent-yearly" id="totalSpentYTD">Total spent traveling with us this year:</h3>
   </footer>
-  <!-- <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px"> -->
-  <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
+  </section>
   <script src="bundle.js"></script>
-
 </body>
+
 </html>

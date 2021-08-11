@@ -13,9 +13,8 @@ class Traveler {
     this.pastTrips = [];
     this.upcomingTrips = [];
     this.spendingYTD = 0;
+    this.stagedTrip = {};
   }
-
-  // maybe put this functionaility in scripts when getting the individual users trips
 
   sortAllTripsByDate() {
     this.allTrips.sort((a, b) => (a.date > b.date ? 1 : -1));
@@ -26,7 +25,6 @@ class Traveler {
       if (trip.status === 'pending') {
         this.pendingTrips.push(trip);
       }
-
       let startDate = trip.date;
       let endDate = dayjs(trip.date).add(trip.duration, 'day');
 
@@ -56,7 +54,6 @@ class Traveler {
         tripsYTD.push(trip);
       }
     });
-
     let totalYTD = [
       ...tripsYTD,
       this.currentTrip,
@@ -70,6 +67,8 @@ class Traveler {
 }
 
 export default Traveler;
+
+//clean up files
 
 // method to get trips by date (earliest date first) and by status (approved or pending)
 
