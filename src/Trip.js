@@ -11,7 +11,7 @@ class Trip {
     this.destinations = destinations;
     this.cost = 0;
     this.tripsDestination = {};
-    //add city property to display
+    // add test to see to the above property
   }
 
   //need to add this test to test as well
@@ -28,27 +28,7 @@ class Trip {
     this.tripsDestination = foundDestination;
   }
 
-  // calculateTripEstimate(destinationID, duration, numOfTravelers) {
-  //   const currentDestination = this.destinations.find(
-  //     (destination) => destinationID === destination.id
-  //   );
-
-  //   const flightAndLodingPerPerson =
-  //     this.tripsDestination.estimatedLodgingCostPerDay * duration +
-  //     this.tripsDestination.estimatedFlightCostPerPerson;
-
-  //   const totalCostBeforeCommission = flightAndLodingPerPerson * numOfTravelers;
-
-  //   this.cost = Number((totalCostBeforeCommission * 1.1).toFixed(2));
-  // }
-
   calculateTripCost() {
-    // below is in the above function figure how to fix the tests
-
-    // const currentDestination = this.destinations.find(
-    //   (destination) => this.destinationID === destination.id
-    // );
-
     const flightAndLodingPerPerson =
       this.tripsDestination.estimatedLodgingCostPerDay * this.duration +
       this.tripsDestination.estimatedFlightCostPerPerson;
@@ -56,20 +36,6 @@ class Trip {
     const totalCostBeforeCommission = flightAndLodingPerPerson * this.travelers;
 
     this.cost = Number((totalCostBeforeCommission * 1.1).toFixed(2));
-
-    // DOM DISPLAY LOGIC
-    // let totalCost = `$${(totalCostBeforeCommission * 1.1).toFixed(2)}`;
-
-    // totalCost = [
-    //   totalCost.slice(0, totalCost.length - 6),
-    //   ',',
-    //   totalCost.slice(totalCost.length - 6),
-    // ].join('');
-
-    // this.cost = totalCost;
-
-    // TEST BELOW
-    // expect(trip.cost).to.equal('$21,004.50');
   }
 }
 
