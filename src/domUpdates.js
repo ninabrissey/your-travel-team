@@ -4,6 +4,7 @@ import * as dayjs from 'dayjs';
 import { postData } from './apiCalls';
 
 // global variables 👇
+import Trip from './Trip';
 import {
   dateToday,
   currentTraveler,
@@ -14,6 +15,7 @@ import {
 } from './scripts';
 let destinationSelected;
 export let tripRequest;
+let tripDetails;
 
 // query selectors 👇
 const cardsGrid = document.getElementById('cardsGrid');
@@ -22,10 +24,12 @@ const currentTripCard = document.getElementById('currentTrip');
 const logoutBtn = document.getElementById('logout');
 const totalSpentYTD = document.getElementById('totalSpentYTD');
 
-// display on load 👇
-
 // display upon user log on 👇
-const displayTravelerDashBoard = (traveler, trips) => {};
+export const displayTravelerDashBoard = (traveler, trips) => {
+  displayYearToDateSpent();
+  renderDestinationsGrid();
+  renderCurrentTrip();
+};
 
 export const displayYearToDateSpent = () => {
   console.log(currentTraveler);
@@ -53,21 +57,28 @@ export const renderDestinationsGrid = () => {
   });
 };
 
-// display upon user input once logged in 👇
-// export const makeTripCostString = () => {
-//   let ytdSpent = `$${currentTraveler.getSpendingYTD(dateToday)}`;
+export const renderCurrentTrip = () => {
+  currentTraveler.currentTrip = currentTraveler.upcomingTrips[0];
+  let startDate = dayjs(currentTraveler.currentTrip.date).format('MM/DD/YYYY');
+  let endDate = dayjs(startDate)
+    .add(currentTraveler.currentTrip.duration, 'day')
+    .format('MM/DD/YYYY');
+  currentTripCard.innerHTML += `
+    <h3>Your current trip: <h3>
+    <section class="card current">
+    <div class="destination-card">
+      <img class="destination-image" src="${currentTraveler.currentTrip.tripsDestination.image}" alt="${currentTraveler.currentTrip.tripsDestination.alt}">
+      <div class="destination-details">
+        <h4 class="city">${currentTraveler.currentTrip.tripsDestination.destination}</h4>
+        <p class="lodging-cost">Number of travelers: ${currentTraveler.currentTrip.travelers}</p>
+        <p class="lodging-cost">Travel dates: ${startDate} - ${endDate}</p>
+        <p class="flight-cost">Trip cost: $${currentTraveler.currentTrip.cost}</p>
+      </div>
+    </div>
+  `;
+};
 
-//   console.log(ytdSpent);
-
-///finish this function and commit
-
-// return [
-//   tripCost.slice(0, tripCost.length - 6),
-//   ',',
-//   tripCost.slice(tripCost.length - 6),
-// ].join('');
-// };
-
+// event handlers and functions dependent user interation👇
 export const renderTripsGrid = (e) => {
   cardsGrid.classList.add('cards-grid');
   console.log(currentTraveler);
@@ -102,33 +113,13 @@ export const renderTripsGrid = (e) => {
   }
 };
 
-export const renderCurrentTrip = () => {
-  currentTraveler.currentTrip = currentTraveler.upcomingTrips[0];
-  let startDate = dayjs(currentTraveler.currentTrip.date).format('MM/DD/YYYY');
-  let endDate = dayjs(startDate)
-    .add(currentTraveler.currentTrip.duration, 'day')
-    .format('MM/DD/YYYY');
-  currentTripCard.innerHTML += `
-    <h3>Your current trip: <h3>
-    <section class="card current">
-    <div class="destination-card">
-      <img class="destination-image" src="${currentTraveler.currentTrip.tripsDestination.image}" alt="${currentTraveler.currentTrip.tripsDestination.alt}">
-      <div class="destination-details">
-        <h4 class="city">${currentTraveler.currentTrip.tripsDestination.destination}</h4>
-        <p class="lodging-cost">Number of travelers: ${currentTraveler.currentTrip.travelers}</p>
-        <p class="lodging-cost">Travel dates: ${startDate} - ${endDate}</p>
-        <p class="flight-cost">Trip cost: $${currentTraveler.currentTrip.cost}</p>
-      </div>
-    </div>
-  `;
-};
-
 export const displayBookTripPage = (e) => {
   if (typeof eval(e.target.id) === 'number') {
     const destinationID = parseInt(e.target.id);
     destinationSelected = destinationsData.find(
       (destinationData) => destinationData.id === destinationID
     );
+    console.log(destinationSelected);
     mainDisplay.removeEventListener('click', displayBookTripPage);
 
     mainHeader.innerText = 'Plan Your Trip';
@@ -173,17 +164,18 @@ export const displayBookTripPage = (e) => {
       </section>
     </div>
     `;
-
     document
       .getElementById('getEstimate')
       .addEventListener('click', getTripEstimate);
   }
 };
 
+// ________________NEED TO MOVE TO SCRIPTS and Pull OUT DOM UPDATE INFO TO KEEP IN DOM
+
 export const getTripEstimate = () => {
   const tripForm = document.getElementById('tripForm');
-  const startDate = document.getElementById('start').value;
-  const formattedStartDate = dayjs(startDate).format('YYYY/MM/DD');
+  const tripDate = document.getElementById('start').value;
+  const formattedStartDate = dayjs(tripDate).format('YYYY/MM/DD');
   const duration = document.getElementById('duration').value;
   const numOfTravelers = document.getElementById('travelers').value;
 
@@ -196,8 +188,8 @@ export const getTripEstimate = () => {
     `;
 
     setTimeout(function () {
-      const sel = document.getElementById('formError');
-      sel.remove(0);
+      const errorMessage = document.getElementById('formError');
+      errorMessage.remove(0);
     }, 5000);
 
     document
@@ -205,13 +197,26 @@ export const getTripEstimate = () => {
       .addEventListener('click', getTripEstimate);
     return;
   }
+
   if (!formattedStartDate || duration || numOfTravelers) {
     hide(tripForm);
-    const estimate = calculateTripEstimate(
-      destinationSelected,
-      duration,
-      numOfTravelers
-    );
+
+    tripDetails = {
+      id: tripsData.length + 1,
+      userID: currentTraveler.id,
+      destinationID: destinationSelected.id,
+      travelers: parseInt(numOfTravelers),
+      date: dayjs(tripDate).format('YYYY/MM/DD'),
+      duration: parseInt(duration),
+      status: 'pending',
+      suggestedActivities: [],
+      tripsDestination: destinationSelected,
+    };
+
+    currentTraveler.stagedTrip = new Trip(tripDetails, destinationsData);
+    currentTraveler.stagedTrip.updateTripProperties();
+    const estimate = currentTraveler.stagedTrip.cost;
+
     cardsGrid.innerHTML += `
     <div>
       <p>You're estimated cost is ${estimate} for ${numOfTravelers} travelers for a duration of ${duration} days.</p>
@@ -225,110 +230,39 @@ export const getTripEstimate = () => {
   }
 };
 
-export const calculateTripEstimate = (
-  destinationSelected,
-  duration,
-  numOfTravelers
-) => {
-  // const duration = document.getElementById('duration').value;
-  const tripDate = document.getElementById('start').value;
-  // const numOfTravelers = document.getElementById('travelers').value;
-
-  const currentDestination = destinationsData.find(
-    (destination) => destinationSelected.id === destination.id
-  );
-  console.log(currentDestination);
-
-  const flightAndLodingPerPerson =
-    currentDestination.estimatedLodgingCostPerDay * duration +
-    currentDestination.estimatedFlightCostPerPerson;
-
-  const totalCostBeforeCommission = flightAndLodingPerPerson * numOfTravelers;
-
-  const estimatedTripCost = Number(
-    (totalCostBeforeCommission * 1.1).toFixed(2)
-  );
-  createPostObject(
-    currentTraveler,
-    currentDestination.id,
-    numOfTravelers,
-    tripDate,
-    duration
-  );
-  console.log(tripRequest);
+const postUserTrip = () => {
+  const tripRequestObject = {
+    id: tripDetails.id,
+    userID: tripDetails.userID,
+    destinationID: tripDetails.destinationID,
+    travelers: tripDetails.travelers,
+    date: tripDetails.date,
+    duration: tripDetails.duration,
+    status: tripDetails.status,
+    suggestedActivities: [],
+  };
+  try {
+    postData(tripRequestObject, 'trips');
+  } catch (exception_var) {
+    console.log('xception_var:', exception_var);
+  }
 };
 
 const hide = (element) => {
   element.classList.add('hidden');
 };
 
-// const show = (element) => {
-//   element.classList.remove('hidden')
-// }
+const show = (element) => {
+  element.classList.remove('hidden');
+};
 
 /*use to get destination and run other functions*/
 
-const createPostObject = (
-  currentTraveler,
-  destinationID,
-  numTravelers,
-  tripDate,
-  duration
-) => {
-  tripRequest = {
-    id: tripsData.length + 1,
-    userID: currentTraveler.id,
-    destinationID: destinationID,
-    travelers: parseInt(numTravelers),
-    date: dayjs(tripDate).format('YYYY/MM/DD'),
-    duration: parseInt(duration),
-    status: 'pending',
-    suggestedActivities: [],
-  };
-};
-
-const postUserTrip = () => {
-  console.log(tripRequest);
-  postData(tripRequest, 'trips');
-};
-
-//need to capture the data
-//make a post object
-//post it
-//get response
-//error - handle
-
-const requestTrip = () => {};
-
-//might need to export//import destinationSelected
-
 const logOut = () => {
-  // cardsGrid.removeEventListener('click', displayBookTripPage);
+  cardsGrid.removeEventListener('click', displayBookTripPage);
+  displayLogin();
 };
 
-//
+const displayLogin = () => {};
 
-const showErrorMessage = () => {
-  //error.status
-  //error.message
-  //properties on the dom
-};
-
-//This should maybe go into API calls
-// Example from Alex
-// const postData = (postObject) => {
-//   postApiData(postObject)
-//     .then((response) => checkForError(response, 'pending'))
-//     .catch((error) => {
-//       domUpdates.showMsg(
-//         customerBookingsSection,
-//         currentCustomer,
-//         lookingForDate,
-//         'fail',
-//         error
-//       );
-//       timeout(updateCustomerBookings);
-//     });
-// };
-
-// export default { renderDestinationsGrid, renderTripsGrid };
+const showErrorMessage = () => {};
