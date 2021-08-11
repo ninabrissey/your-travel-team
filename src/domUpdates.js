@@ -237,9 +237,9 @@ const logOut = () => {
   displayLogin();
 };
 
-const displayLogin = () => {};
+// const displayLogin = () => {};
 
-const showErrorMessage = () => {};
+// const showErrorMessage = () => {};
 
 // export const getTripEstimate = () => {
 //   const tripForm = document.getElementById('tripForm');

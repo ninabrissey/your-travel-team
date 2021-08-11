@@ -46,32 +46,32 @@ export let tripsData;
 let tripDetails;
 
 // event handlers and functions 👇
-function validatePassword() {
-  let passwordString = username.value.slice(0, 8);
-  let passwordNumber = parseInt(username.value.slice(8, 10));
-  if (
-    username.value.length < 11 &&
-    passwordString === 'traveler' &&
-    passwordNumber > 0 &&
-    passwordNumber < 51 &&
-    userPassword.value === 'travel'
-  ) {
-    username.value = null;
-    userPassword.value = null;
-    currentUserID = passwordNumber;
-    getAllData();
-  } else {
-    username.value = null;
-    userPassword.value = null;
-    show(loginErrorMessage);
-    setTimeout(function () {
-      hide(loginErrorMessage);
-    }, 4000);
-  }
-}
+// function validatePassword() {
+//   let passwordString = username.value.slice(0, 8);
+//   let passwordNumber = parseInt(username.value.slice(8, 10));
+//   if (
+//     username.value.length < 11 &&
+//     passwordString === 'traveler' &&
+//     passwordNumber > 0 &&
+//     passwordNumber < 51 &&
+//     userPassword.value === 'travel'
+//   ) {
+//     username.value = null;
+//     userPassword.value = null;
+//     currentUserID = passwordNumber;
+//     getAllData();
+//   } else {
+//     username.value = null;
+//     userPassword.value = null;
+//     show(loginErrorMessage);
+//     setTimeout(function () {
+//       hide(loginErrorMessage);
+//     }, 4000);
+//   }
+// }
 
 const getAllData = () => {
-  fetchAllData(currentUserID)
+  fetchAllData(34)
     .then((data) => {
       let travelerData = data[0];
       tripsData = data[1].trips;
@@ -102,12 +102,11 @@ const updateClassProperties = () => {
   trips;
   currentTraveler.sortAllTripsByDate(dateToday);
   currentTraveler.categorizeTrips(dateToday);
-  // currentTraveler.getSpendingYTD(dateToday);
 };
 
 const displayDashboard = () => {
-  hide(loginPage);
-  show(travelerDashboard);
+  // hide(loginPage);
+  // show(travelerDashboard);
   updateClassProperties(dateToday);
   currentTraveler.getSpendingYTD(dateToday);
   displayTravelerDashBoard();
@@ -181,5 +180,8 @@ export const querySelectAndAddListener = (id, eve, func) => {
 tripsButtons.addEventListener('click', renderTripsGrid);
 mainDisplay.addEventListener('click', displayBookTripPage);
 bookTripBtn.addEventListener('click', renderDestinationsGrid);
-loginBtn.addEventListener('click', validatePassword);
+// loginBtn.addEventListener('click', validatePassword);
 logoutBtn.addEventListener('click', logoutOfApp);
+
+// for accessability
+window.addEventListener('load', getAllData);
