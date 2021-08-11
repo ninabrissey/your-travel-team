@@ -100,6 +100,6 @@ describe('Traveler', () => {
     traveler.categorizeTrips(dateToday);
     traveler.getSpendingYTD(dateToday);
 
-    expect(traveler.spendingYTD).to.equal(36652.5);
+    expect(traveler.spendingYTD).to.equal(36652);
   });
 });

@@ -27,7 +27,9 @@ export const displayTravelerDashBoard = () => {
 };
 
 export const displayYearToDateSpent = () => {
-  totalSpentYTD.innerText = `Total spent traveling with us this year: $${currentTraveler.spendingYTD}`;
+  totalSpentYTD.innerText = `Total spent traveling with us this year: $${currentTraveler.spendingYTD.toFixed(
+    2
+  )}`;
 };
 
 export const renderDestinationsGrid = () => {
@@ -52,7 +54,6 @@ export const renderDestinationsGrid = () => {
 };
 
 export const renderCurrentTrip = () => {
-  console.log(currentTraveler.currentTrip);
   if (Object.keys(currentTraveler.currentTrip).length === 0) {
     return;
   }
@@ -78,7 +79,6 @@ export const renderCurrentTrip = () => {
 // event handlers and functions dependent user interation👇
 export const renderTripsGrid = (e) => {
   cardsGrid.classList.add('cards-grid');
-  console.log(currentTraveler);
   mainDisplay.removeEventListener('click', displayBookTripPage);
   let tripType = e.target.id;
   if (
